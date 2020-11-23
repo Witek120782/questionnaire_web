@@ -1,3 +1,3 @@
 <template>
-	<h1>mane page</h1>
+	<h1>main page</h1>
 </template>
