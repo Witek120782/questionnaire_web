@@ -1,26 +1,23 @@
 <template>
-	<div class="baseButton">
-		<slot></slot>
-		<p v-if="modeType">check v-if</p>
+	<div>
+		<router-link :to="toLink" v-if="mode=='link'">
+			<div class="baseButton">
+				<slot></slot>
+			</div>
+		</router-link>
+		<button class="baseButton" v-if="mode=='button'">
+			<slot name="buttonSlot"></slot>
+		</button>
 	</div>	
 </template>
 
 <script>
-import { toRefs, computed } from 'vue';
 export default {
-props: ['mode'],
-setup(props){
-	const { mode } = toRefs(props);
-
-	const modeType = computed(()=>{
-		console.log(mode);
-		if (mode.value === 'button'){
-			return true
-		} else {return false}
-	});
+props: ['mode', 'toLink'],
+setup(){
 
 	return{
-		modeType
+	
 	}
 }
 
@@ -30,10 +27,11 @@ setup(props){
 <style scoped>
 .baseButton{
 	box-sizing: border-box;
-	padding: 2px;
+	padding: 8px;
 	border: 2px solid black;
 	text-align: center;
 	box-shadow: 3px 3px 2px lightgray;
+	text-decoration: none;
 }
 
 .baseButton:hover{
