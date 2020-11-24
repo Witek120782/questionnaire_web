@@ -43,7 +43,7 @@ setup(){
 
 a{
 	text-decoration: none;
-	color: white
+	color: white;
 }
 .baseButton:hover{
 	background-color: lightgrey;

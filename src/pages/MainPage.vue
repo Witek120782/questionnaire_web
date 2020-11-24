@@ -1,7 +1,7 @@
 <template>
 	<div>
 	<h1>main page</h1>
-	<base-card></base-card>
+	<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true"></base-card>
 </div>
 </template>
 <script>
