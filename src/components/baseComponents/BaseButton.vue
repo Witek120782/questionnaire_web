@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="wrapper">
 		<router-link :to="toLink" v-if="mode=='link'">
 			<div class="baseButton">
 				<slot></slot>
@@ -25,15 +25,26 @@ setup(){
 </script>
 
 <style scoped>
+.wrapper{
+	display: inline-block;
+	margin:10px 10px 0 10px;
+	padding:5px 5px 0 5px;
+	background-color: yellow;
+	min-height: 0;
+}
 .baseButton{
 	box-sizing: border-box;
-	padding: 8px;
+	padding: 10px;
 	border: 2px solid black;
 	text-align: center;
-	box-shadow: 3px 3px 2px lightgray;
+	box-shadow: 2px 2px 2px lightgray;
 	text-decoration: none;
 }
 
+a{
+	text-decoration: none;
+	color: white
+}
 .baseButton:hover{
 	background-color: lightgrey;
 }
