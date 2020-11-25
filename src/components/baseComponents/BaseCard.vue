@@ -7,7 +7,10 @@
 			<radio-rating v-if="colourRating" name="colourRating" title="colour Rating component" :ratingValue="ratingColourValue" @update:ratingValue="ratingColourValue = $event"/>
 			<radio-rating v-if="designRating" name="designRating" title="design Rating component" :ratingValue="ratingDesignValue" @update:ratingValue="ratingDesignValue = $event"/>
 		<div class="sizeToChoose" v-if="sizes && sizes.length>0">
-			sizeToChoose
+			<label for="sizeRange">Choose a size range:</label>
+			<select name="sizeRange" id="sizeRange" v-model="chooseSizeRange">
+					<option v-for="size in sizes" :value="size" :key="size" >{{ size }}</option>
+			</select>
 		</div>
 		<div class="pcsToPolybag" v-if="pcsToPolybag">
 			<input type="number" id="pcs" name="pcsInPoly" v-model="pcsInBag"><label for="pcsInPoly">pcs in polybag</label>
@@ -40,6 +43,7 @@ export default {
 		const ratingColourValue = ref('neutral');
 		const ratingDesignValue = ref('neutral');
 		const pcsInBag = ref('');
+		const chooseSizeRange = ref('');
 
 		const badInputNo = computed(()=>{
 			if (pcsInBag.value<0 || pcsInBag.value%1!=0 || pcsInBag.value.includes('3')){
@@ -52,6 +56,7 @@ export default {
 			console.log(ratingColourValue.value)
 			console.log(ratingDesignValue.value)
 			console.log(pcsInBag.value)
+			console.log(chooseSizeRange.value)
 		}
 
 
@@ -60,6 +65,7 @@ export default {
 			ratingColourValue,
 			ratingDesignValue,
 			pcsInBag,
+			chooseSizeRange,
 			badInputNo,
 			showRatings
 		}
