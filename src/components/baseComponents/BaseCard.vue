@@ -3,31 +3,9 @@
 		<div class="title">{{ title }}</div>
 		<div class="photo">photo</div>
 		<div class="rating">rating
-			<div class="ratingToChoose" v-if="ifRating">
-				<input type="radio" id="bad" name="ratingMain" value="bad" v-model="ratingMainValue">
-				<label for="ratingMain">bad</label>
-				<input type="radio" id="neutral" name="ratingMain" value="neutral" v-model="ratingMainValue" checked>
-				<label for="ratingMain">nautral</label>
-				<input type="radio" id="good" name="ratingMain" value="good" v-model="ratingMainValue">
-				<label for="ratingMain">good</label>	
-			<div class="colourRating" v-if="colourRating"> Colour Rating
-				<input type="radio" id="bad" name="ratingColour" value="bad" v-model="ratingColourValue">
-				<label for="ratingColour">bad</label>
-				<input type="radio" id="neutral" name="ratingColour" value="neutral" v-model="ratingColourValue" checked>
-				<label for="ratingColour">nautral</label>
-				<input type="radio" id="good" name="ratingColour" value="good" v-model="ratingColourValue">
-				<label for="ratingColour">good</label>
-			</div>
-			<div class="designRating" v-if="designRating"> design Rating
-				<input type="radio" id="bad" name="ratingDesign" value="bad" v-model="ratingDesignValue">
-				<label for="ratingDesign">bad</label>
-				<input type="radio" id="neutral" name="ratingDesign" value="neutral" v-model="ratingDesignValue" checked>
-				<label for="ratingDesign">nautral</label>
-				<input type="radio" id="good" name="ratingDesign" value="good" v-model="ratingDesignValue">
-				<label for="ratingDesign">good</label>
-
-			</div>
-		</div>
+			<radio-rating v-if="ifRating" name="mainRating" title="main Rating component" :ratingValue="ratingMainValue" @update:ratingValue="ratingMainValue = $event"/>
+			<radio-rating v-if="colourRating" name="colourRating" title="colour Rating component" :ratingValue="ratingColourValue" @update:ratingValue="ratingColourValue = $event"/>
+			<radio-rating v-if="designRating" name="designRating" title="design Rating component" :ratingValue="ratingDesignValue" @update:ratingValue="ratingDesignValue = $event"/>
 		<div class="sizeToChoose" v-if="sizes && sizes.length>0">
 			sizeToChoose
 		</div>
@@ -43,8 +21,12 @@
 <script>
 
 import {ref, computed} from 'vue';
+import RadioRating from './RadioRating.vue'
 
 export default {
+	components:{
+		RadioRating
+	},
 	props:[
 		'title',
 		'ifRating',
@@ -115,11 +97,7 @@ export default {
 	justify-self: center;
 	background-color: indigo;
 }
-.ratingToChoose label{
-	box-sizing: border-box;
-	color: red;
-	padding: 0 25px 0 5px;
-}
+
 .badInputNo{
 	color:red;
 	font-weight: bold;
