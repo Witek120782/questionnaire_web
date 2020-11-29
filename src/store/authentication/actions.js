@@ -47,6 +47,7 @@ export default{
 		})
 		}
 
+
 				localStorage.setItem('userId', response.uid);
 				localStorage.setItem('token', userToken)
 
@@ -54,9 +55,9 @@ export default{
 				const expirationDate = new Date().getTime() +  expiresIn;
 				localStorage.setItem('tokenExpiration', expirationDate);
 
-		timer = setTimeout(function(){
-				context.dispatch('autoLogout')
-		},expiresIn);
+				timer = setTimeout(function(){
+					context.dispatch('autoLogout')
+				},expiresIn);
 
 		context.commit('setUser', {
 			token: userToken,
@@ -79,10 +80,9 @@ export default{
 		}
 
 		// w przeciwnym razie ustawiamy timer na pozostaly czas do wygasniecia
-				timer = setTimeout(function(){
+		timer = setTimeout(function(){
 			context.dispatch('autoLogout')
 		},expiresIn);
-
 
 		context.commit('setUser', {
 			token: token,
@@ -91,6 +91,7 @@ export default{
 	},
 
 	logout(context){
+
 		// czyścimy pamiec przeglarki zeby przy przeladowaniu strony nie pozostac nadal zalogowanym
 		localStorage.removeItem('token'),
 		localStorage.removeItem('userId')
@@ -104,8 +105,9 @@ export default{
 			userId: null,
 		})
 	},
+
 	autoLogout(context){
-		context.dispatch('logout'),
-		context.commit('setAutoLogut')
+		context.dispatch('logout')
+		context.commit('setAutoLogout')
 	}
 }

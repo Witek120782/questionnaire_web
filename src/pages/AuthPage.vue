@@ -75,11 +75,11 @@ export default {
 					password: password.value
 				})
 			}
-			email.value=null
-			password.value=null
 		} catch(err){
 			error.value = err.message || 'signup not completed :-/';
 		}
+		email.value = null
+		password.value = null
 	}
 
 		return{

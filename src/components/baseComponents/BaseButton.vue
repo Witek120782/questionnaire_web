@@ -5,9 +5,9 @@
 				<slot></slot>
 			</div>
 		</router-link>
-		<button class="baseButton" v-if="mode=='button'">
+		<div class="baseButton" v-if="mode=='button'">
 			<slot name="buttonSlot"></slot>
-		</button>
+		</div>
 	</div>	
 </template>
 
