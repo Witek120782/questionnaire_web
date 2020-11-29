@@ -6,7 +6,9 @@ export default{
 	namespaced: true,
 	state(){
 		return{
-
+			userId: null,
+			token: null,
+			autoLogout: false
 		}
 	},
 	getters,
