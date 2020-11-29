@@ -2,7 +2,7 @@
 <div class="wrapper">
 	<h1>Title of the WebPage</h1>
 	<base-button toLink="/" mode="link">Home Page</base-button>
-	<base-button toLink="/questionnaire" mode="link">Questionnaires</base-button>
+	<base-button toLink="" mode="link">Questionnaires</base-button>
 	<base-button toLink="/auth" mode="link">Login</base-button>
 </div>
 </template>

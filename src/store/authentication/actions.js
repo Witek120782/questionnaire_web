@@ -22,66 +22,46 @@ export default{
 	async auth(context, payload){
 		const mode = payload.mode;
 		
-		//wm code 
-		let response = null
+		let response = null; 
+		let userToken = null;
 
 		if (mode === 'signup'){
-			defaultAuth.createUserWithEmailAndPassword(payload.email, payload.password)
+		await	defaultAuth.createUserWithEmailAndPassword(payload.email, payload.password)
 			.then(auth=>{
-				response = auth;
-				console.log(response);
+				response = auth.user.toJSON();
+				auth.user.getIdToken().then(token=>{
+					userToken = token;
+				});
 			}).catch(error => {
     console.log(error.message)
   })			
 		} else if(mode === 'login'){
-			defaultAuth.signInWithEmailAndPassword(payload.email, payload.password)
+			await defaultAuth.signInWithEmailAndPassword(payload.email, payload.password)
 			.then(auth=>{
-				console.log(auth);
-				response = auth;
+				response = auth.user.toJSON();
+				auth.user.getIdToken().then(token=>{
+					userToken = token;
+				});
 			}).catch(error => {
     console.log(error.message)
-  })
+		})
 		}
 
+				localStorage.setItem('userId', response.uid);
+				localStorage.setItem('token', userToken)
 
-		// let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB09D3e5gbIRUlchslPSCYMFXaEXgCyg1U';
-		// if(mode === 'signup'){
-		// 	url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB09D3e5gbIRUlchslPSCYMFXaEXgCyg1U';
-		// }
+				const expiresIn = +response.stsTokenManager.expirationTime *1000;
+				const expirationDate = new Date().getTime() +  expiresIn;
+				localStorage.setItem('tokenExpiration', expirationDate);
 
-		// const response = await fetch(url,{
-		// 	method: 'POST',
-		// 	body: JSON.stringify({
-		// 		email: payload.email,
-		// 		password: payload.password,
-		// 		returnSecureToken: true
-		// 	})
-		// });
+		timer = setTimeout(function(){
+				context.dispatch('autoLogout')
+		},expiresIn);
 
-		// const responseData = await response.json();
-
-		// if(!response.ok){
-		// 	const error = new Error(responseData.message || 'Log in not completed.');
-		// 	throw error
-		// }
-
-		// // pobieramy czas wygasniecie tokena, przrabiamy go na milisekundy i zmieniamy na number przez dodanie + na poczatku
-		// const expiresIn = +responseData.expiresIn *1000;
-		// const expirationDate = new Date().getTime() +  expiresIn;
-
-		// // zapisujemy w pamieci przegladarki token i userId zeby w przypadku przeladowania strony nie trzeba bylo za kazdym razem sie ponownie logowac
-		// localStorage.setItem('token', responseData.idToken);
-		// localStorage.setItem('userId', responseData.localId);
-		// localStorage.setItem('tokenExpiration', expirationDate);
-	
-		// timer = setTimeout(function(){
-		// 	context.dispatch('autoLogout')
-		// },expiresIn);
-
-		// context.commit('setUser', {
-		// 	token: responseData.idToken,
-		// 	userId: responseData.localId,
-		// })
+		context.commit('setUser', {
+			token: userToken,
+			userId: response.uid
+		})
 	},
 
 
@@ -98,7 +78,7 @@ export default{
 			return;
 		}
 
-		// w przeciwnym raziu ustawiamy timer na pozostaly czas do wygasniecia
+		// w przeciwnym razie ustawiamy timer na pozostaly czas do wygasniecia
 				timer = setTimeout(function(){
 			context.dispatch('autoLogout')
 		},expiresIn);
@@ -109,6 +89,7 @@ export default{
 			userId: userId,
 		})
 	},
+
 	logout(context){
 		// czyścimy pamiec przeglarki zeby przy przeladowaniu strony nie pozostac nadal zalogowanym
 		localStorage.removeItem('token'),
@@ -124,7 +105,7 @@ export default{
 		})
 	},
 	autoLogout(context){
-		context.dispatch('logout')
-		context.dispatch('setAutoLogut')
+		context.dispatch('logout'),
+		context.commit('setAutoLogut')
 	}
 }
