@@ -1,9 +1,7 @@
 <template>
 	<div class="wrapper">
 		<router-link v-if="ifCloseBtn" to="/" class="btnClose">X</router-link>
-		<transition name="flashing">
-			<div class="message">{{ message }}</div>
-		</transition>
+			<div v-if="ifCloseBtn" class="message" :class="{flashing: ifFlashing}">{{ message }}</div>
 	</div>
 </template>
 
@@ -17,6 +15,10 @@ export default {
 		message:{
 			type: String,
 			default:'message'
+		},
+		ifFlashing:{
+			type: Boolean,
+			default: false
 		}
 	}
 }
@@ -30,34 +32,51 @@ export default {
 	top: 0;
 	margin:0;
 	width: 100%;
+	height: 100%;
 	z-index: 999;
-	background-color: rgba(0, 0, 0, 0.75);
+	background-color: rgba(0, 0, 0, 0.85);
+}
+a.btnClose {
+	display: flex;
+	position:absolute;
+	right: 50px;
+	top: 50px;
+	border: 2px solid white;
+	border-radius: 50%;
+	padding: 7px;
+	color:black;
+	background-color: white;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: bold;
 }
 .message{
-	width: 20vw;
+	width: 40vw;
 	height: 20vh;
 	line-height: 20vh;
-	margin: 40vh 40vw 40vh 40vw;
+	margin: 40vh 30vw 40vh 30vw;
 	text-align: center;
 	font-size: 30px;
-	color: red;
-	background-color: yellow;
+	color:white;
+	text-transform: uppercase;	
 }
-
-.flashing-active{
-	background-color: blue;
-	animation: flashAnim 1.3s linear;
-	
+.flashing{
+	animation: flashAnim 1.3s linear infinite alternate;
 }
 
 @keyframes flashAnim{
-	from{
-		opacity: 0;
-		transform: translateX(-5px) scale(0.5);
+	0%{
+		opacity: 0.6;
+		transform: scale(0.7);
+
 	}
-	to{
+	95%{
 		opacity: 1;
-		transform: translateX(0) scale(1);;
+		transform: scale(1.1);
+	}
+	100%{
+		opacity: 1;
+		transform: scale(1);
 	}
 }
 

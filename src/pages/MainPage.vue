@@ -1,14 +1,14 @@
 <template>
 	<div>
-	<base-dialog v-if="ifDialog" message="hello world"></base-dialog>
+	<base-dialog v-if="ifDialog" :ifFlashing="baseDialogFlash" message="loading..."></base-dialog>
 	<h1>main page</h1>
-	<button @:click="openDialog">open Dialog</button>
+	<button @click="openDialog">open Dialog</button>
 	<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true" :sizes="sizerange"></base-card>
 </div>
 </template>
 <script>
 import BaseCard from '../components/baseComponents/BaseCard.vue'
-import {ref, computed} from 'vue'
+import {ref} from 'vue'
 export default {
 	components:{
 		BaseCard
@@ -16,13 +16,16 @@ export default {
 	setup(){
 		const sizerange = ['23-26', '27-30'];
 		const ifDialog= ref(false);
-		const openDialog = computed(function(){
-			return !ifDialog.value
-		})
+		const baseDialogFlash = false;
+		
+		function openDialog (){
+			ifDialog.value = !ifDialog.value
+		}
 		return{
 			sizerange,
 			ifDialog,
-			openDialog
+			openDialog,
+			baseDialogFlash
 		}
 	}
 	
