@@ -1,8 +1,8 @@
 <template>
 <div class="wrapper">
 	<h1>Title of the WebPage</h1>
-	<base-button toLink="/" mode="link">Home Page</base-button>
-	<base-button v-if="ifLogged" toLink="" mode="link">Questionnaires</base-button>
+	<base-button toLink="/home" mode="link">Home Page</base-button>
+	<base-button v-if="ifLogged" toLink="/questionnaire" mode="link">Questionnaires</base-button>
 	<base-button v-if="!ifLogged" toLink="/auth" mode="link">Login</base-button>
 	<base-button v-else @click="logout" mode="button">
 		<template v-slot:buttonSlot>

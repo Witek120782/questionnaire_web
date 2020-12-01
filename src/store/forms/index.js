@@ -14,7 +14,8 @@ export default{
 				reqRatingColour: false,
 				reqRagingDesign: false,
 				reqPcsToBag: false,
-				reqSizeRange: false
+				reqSizeRange: false,
+				qtyInPolybag: 0
 			}]
 		}
 	},
