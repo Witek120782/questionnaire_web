@@ -60,7 +60,7 @@ a.btnClose {
 	line-height: 20vh;
 	margin: 40vh 30vw 40vh 30vw;
 	text-align: center;
-	font-size: 30px;
+	font-size: 25px;
 	color:white;
 	text-transform: uppercase;	
 }

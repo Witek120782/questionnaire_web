@@ -80,6 +80,7 @@ export default {
 		}
 		email.value = null
 		password.value = null
+		isLoading.value=false
 	}
 
 		return{
