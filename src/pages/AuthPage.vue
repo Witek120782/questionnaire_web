@@ -1,5 +1,6 @@
 <template>
 	<form @submit.prevent="sumbitForm">
+		<base-dialog v-if="isLoading" :ifFlashing="baseDialogFlash" message="loading..." @hide-show="toggleDialog"></base-dialog>
 		<div class="form-control">
 			<label for="email">Email:</label>
 			<input type="email" id="email" placeholder="your@email.adress" v-model="email"/>
@@ -9,7 +10,7 @@
 			<input type="password" id="password" placeholder="password at least 6 characters" v-model="password"/>
 		</div>
 		<p v-if="!formIsValid">Please inser valid email adress and password.</p>
-		<button>{{mode}}</button>
+		<button>{{sumbitButtonText}}</button>
 		<button @click="swichMode">{{ switchModeTextButton }}</button>
 	</form>
 	<div>
@@ -27,13 +28,14 @@ export default {
 		const email = ref('');
 		const password = ref('');
 		const formIsValid = ref(true);
-		const mode = ref('LOGIN');
+		const mode = ref('login');
 		const isLoading = ref(false);
 		const error = ref('');
 		const store = useStore();
+		const baseDialogFlash= true;
 
 	const switchModeTextButton = computed(()=>{
-		if (mode.value === 'LOGIN'){
+		if (mode.value === 'login'){
 			return 'swich to Sign up';
 		}
 		else return 'swich to Login'
@@ -49,12 +51,24 @@ export default {
 		return store.getters['auth/token']
 	})
 
-	function swichMode(){
-		if (mode.value === 'LOGIN'){
-			mode.value ="SIGN UP"
-		} else if (mode.value=== 'SIGN UP'){
-			mode.value = "LOGIN"
+const sumbitButtonText = computed(()=>{
+	if (mode.value === 'login'){
+			return "LOGIN";
+		} else if (mode.value=== 'signUp'){
+			return "SIGN UP";
 		}
+})
+
+	function swichMode(){
+		if (mode.value === 'login'){
+			mode.value ="signUp"
+		} else if (mode.value=== 'signUp'){
+			mode.value = "login"
+		}
+	}
+
+	function toggleDialog(){
+		isLoading.value=false
 	}
 
 	async function sumbitForm(){
@@ -64,12 +78,12 @@ export default {
 		}
 		isLoading.value=true
 		try{
-			if(mode.value==="LOGIN"){
-				store.dispatch('auth/login',{
+			if(mode.value==="login"){
+							store.dispatch('auth/login',{
 					email: email.value,
 					password: password.value
-				})
-			}else if (mode.value==="SIGN UP"){
+				})		
+			}else if (mode.value==="signUp"){
 				store.dispatch('auth/signup',{
 					email:email.value,
 					password: password.value
@@ -84,6 +98,7 @@ export default {
 	}
 
 		return{
+			baseDialogFlash,
 			email,
 			password,
 			formIsValid,
@@ -93,8 +108,10 @@ export default {
 			swichMode,
 			switchModeTextButton,
 			sumbitForm,
+			sumbitButtonText,
 			userId,
-			userToken
+			userToken,
+			toggleDialog
 		}
 	}
 }
