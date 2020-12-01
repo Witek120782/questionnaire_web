@@ -1,8 +1,8 @@
 <template>
 	<div>
-	<base-dialog v-if="ifDialog" :ifFlashing="baseDialogFlash" message="loading..."></base-dialog>
+	<base-dialog v-if="ifDialog" :ifFlashing="baseDialogFlash" message="loading..." @hide-show="toggleDialog"></base-dialog>
 	<h1>main page</h1>
-	<button @click="openDialog">open Dialog</button>
+	<button @click="toggleDialog">open Dialog</button>
 	<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true" :sizes="sizerange"></base-card>
 </div>
 </template>
@@ -16,15 +16,16 @@ export default {
 	setup(){
 		const sizerange = ['23-26', '27-30'];
 		const ifDialog= ref(false);
-		const baseDialogFlash = false;
+		const baseDialogFlash = true;
 		
-		function openDialog (){
+		function toggleDialog (){
+			console.log('here')
 			ifDialog.value = !ifDialog.value
 		}
 		return{
 			sizerange,
 			ifDialog,
-			openDialog,
+			toggleDialog,
 			baseDialogFlash
 		}
 	}

@@ -1,6 +1,9 @@
+// how to use
+// <base-dialog v-if="ifDialog" :ifFlashing="baseDialogFlash" message="loading..." @hide-show="toggleDialog"></base-dialog>
+
 <template>
 	<div class="wrapper">
-		<router-link v-if="ifCloseBtn" to="/" class="btnClose">X</router-link>
+		<router-link v-if="ifCloseBtn" to="/" class="btnClose" @click="$emit('hide-show', $event)">X</router-link>
 			<div v-if="ifCloseBtn" class="message" :class="{flashing: ifFlashing}">{{ message }}</div>
 	</div>
 </template>
@@ -20,7 +23,8 @@ export default {
 			type: Boolean,
 			default: false
 		}
-	}
+	},
+	emits:['hide-show'],
 }
 </script>
 
