@@ -61,7 +61,7 @@
 import {ref} from 'vue';
 export default {
 	setup(){
-		let files = null;
+		const files = ref(['']);
 		const title = ref('')
 		const ratingOrSpec = ref('')
 		const ratingColour = ref('')
@@ -75,7 +75,7 @@ export default {
 			return noOfSizeRanges.value++
 		}
 		function uploadImages(e){
-			files = e.target.files;
+			files.value = e.target.files;
 			console.log(files);
 		}
 
