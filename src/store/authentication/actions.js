@@ -51,13 +51,17 @@ export default{
 				localStorage.setItem('userId', response.uid);
 				localStorage.setItem('token', userToken)
 
-				const expiresIn = +response.stsTokenManager.expirationTime *1000;
-				const expirationDate = new Date().getTime() +  expiresIn;
+				// here somthing is wrong
+				// const expiresIn = +response.stsTokenManager.expirationTime *1000;
+				// const expirationDate = new Date().getTime() +  expiresIn;
+
+				const expirationDate = new Date().getTime() +  60000;
 				localStorage.setItem('tokenExpiration', expirationDate);
+				
 
 				timer = setTimeout(function(){
 					context.dispatch('autoLogout')
-				},expiresIn);
+				},600000);
 
 		context.commit('setUser', {
 			token: userToken,

@@ -7,9 +7,10 @@ import Questionnaire from './pages/questionnaires/QMainPage.vue';
 const router = createRouter({
 	history: createWebHistory(),
 	routes:[
+		{path: '/', redirect: '/home' },
 		{path: '/home', component: MainPage},
 		{path: '/auth', component: AuthPage},
-		{patr: '/questionnaire', component: Questionnaire}
+		{path: '/questionnaire', component: Questionnaire}
 	]
 
 });

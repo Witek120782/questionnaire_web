@@ -12,16 +12,16 @@
 			<label for="rating">Rating</label>
 			<input type="radio" id="specification" value="specification" v-model="ratingOrSpec">
 			<label for="spacification">spacification</label>
-			<div v-if="ratingOrSpec=rating"  class="morRating">
+			<div v-if="ratingOrSpec === 'rating' "  class="morRating">
 					<label>adictional ratings:</label>
 					<input type="checkbox" id="ratingColour" value="ratingColour" v-model="ratingColour">
 					<label for="ratingColour">Rating for Colour</label>
 					<input type="checkbox" id="ratingDesign" value="ratingDesign" v-model="ratingDesign">
 					<label for="ratingDesign">Rating for Design</label>
 			</div>
-			<div v-if="ratingOrSpec=specification" class="qtyInPolybag">
+			<div v-if="ratingOrSpec === 'specification'" class="qtyInPolybag">
 				<label for="qtyInPoly">Qty in polybag:</label>
-				<input type="number" id="qtyInPoly" placeholder="0" v-model="qtyInPoly">
+				<input type="number" id="qtyInPoly" placeholder="0" min='1' max='12' v-model="qtyInPoly">
 			</div>
 			
 		</form>
