@@ -16,6 +16,10 @@ export default{
 				reqPcsToBag: false,
 				reqSizeRange: false,
 				qtyInPolybag: 0
+				// need commments field
+				// how to find pictures from storage - need some path to pictures
+				// need to create id
+				// size range as areas of size ranges to choose
 			}]
 		}
 	},
