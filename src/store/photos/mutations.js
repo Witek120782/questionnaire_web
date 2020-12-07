@@ -1,7 +1,7 @@
 export default{
 	addPhotos(state, payload){
 		state.photos.push({
-			folderName: payload.folderName,
+			formId: payload.formId,
 			pictures: payload.pictures
 		})
 	}

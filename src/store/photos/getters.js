@@ -2,14 +2,14 @@ export default{
 	listOfFolderNames(state){
 		let folderNames = ['']
 		for (const item in state.photos){
-			folderNames.push(item.folderName)
+			folderNames.push(item.formId)
 		}
 		return folderNames
 	},
 
 	getPhotosForFolderName(state, param){
 		return state.photos.filter(item=>{
-			return item.folderName === param
+			return item.formId === param
 		})
 	}
 }
