@@ -1,10 +1,10 @@
 export default{
 	listOfFolderNames(state){
-		let formsList = ['']
+		let formsList = []
 		for (const item in state.forms){
 			formsList.push({
-				id: item.formId,
-				title: formsList.title
+				id: state.forms[item].id,
+				title: state.forms[item].title
 			})
 		}
 		return formsList

@@ -7,8 +7,8 @@ export default{
 	state(){
 		return{
 			forms:[{
-				id:'',
-				title:'',
+				id:'000',
+				title:'tytul12',
 				pictures:'',
 				reqRating: false,
 				reqRatingColour: false,

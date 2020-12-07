@@ -2,7 +2,7 @@ export default{
 	listOfFolderNames(state){
 		let folderNames = ['']
 		for (const item in state.photos){
-			folderNames.push(item.formId)
+			folderNames.push(state.photos[item].formId)
 		}
 		return folderNames
 	},

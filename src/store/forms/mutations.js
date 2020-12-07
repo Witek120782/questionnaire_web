@@ -1,5 +1,7 @@
 export default{
 	addForm(state, payload){
-		state.form.push(payload.newForm)
+		console.log('in add form')
+		state.forms.push(payload)
+		console.log(state.forms)
 	}
 }
