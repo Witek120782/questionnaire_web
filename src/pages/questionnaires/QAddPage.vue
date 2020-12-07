@@ -11,7 +11,7 @@
 
 			<section class="picturesSection">		
 				<label for="pictures">Choose pictures:</label>
-				<input type="file" id="pictures" @onchange="uploadImages" multiple>
+				<input type="file" id="pictures" :onchange="uploadImages" multiple>
 			</section>
 
 			<h2>Rating or specification for "poly":</h2>
@@ -86,7 +86,6 @@ export default {
 		}
 		function uploadImages(e){
 			files.value = e.target.files;
-			console.log(files);
 		}
 
 		function setQty(no){
@@ -109,6 +108,7 @@ export default {
 			catch(err){
 			error.value = err.message || 'form upload not completed :-/';
 		}
+
 		if(files.value.length>0){
 			try{
 				store.dispatch('photos/uploadImages',{

@@ -1,8 +1,11 @@
-import defaultStorage from '../../firebase.js';
-export default{
+import { defaultStorage } from '../../firebase.js';
+
+export default {
 	async uploadImages(context, payload){
+		console.log("in uploadImages")
+		
 		for (const file in payload.imagesList){
-			defaultStorage.ref(payload.formId + '/' + file.name).put(file)
+			defaultStorage.ref(payload.formId + '/' + payload.imagesList[file].name).put(payload.imagesList[file])
 		}
 
 		context.commit('addPhotos',{
@@ -26,7 +29,5 @@ export default{
 				pictures: imagesList
 			})
 		}
-
-
 	}
 }
