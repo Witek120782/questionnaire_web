@@ -15,5 +15,14 @@ export default{
 		defaultDatabase.ref('forms/' + payload.formId).set(newForm)
 
 		context.commit('addForm', newForm)
+	},
+	
+	async readForms (){
+		console.log("in readForms")
+		let formsList = null
+		defaultDatabase.ref('forms/').once().then((snapshot)=>{
+			formsList = snapshot
+		})
+		console.log(formsList)
 	}
 }
