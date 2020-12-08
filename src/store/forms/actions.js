@@ -17,4 +17,6 @@ export default{
 
 		context.commit('addForm', newForm)
 	}
-}
+
+
+}	
