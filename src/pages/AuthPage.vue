@@ -1,6 +1,7 @@
 <template>
+	<base-dialog v-if="isLoading" :ifFlashing="true" message="authorisation..." @hide-show="toggleDialog"/>
 	<form @submit.prevent="sumbitForm">
-		<base-dialog v-if="isLoading" :ifFlashing="baseDialogFlash" message="loading..." @hide-show="toggleDialog"></base-dialog>
+		
 		<div class="form-control">
 			<label for="email">Email:</label>
 			<input type="email" id="email" placeholder="your@email.adress" v-model="email"/>
@@ -18,6 +19,7 @@
 		<p>id: {{ userId }}</p>
 		<p>token: {{ userToken }}</p>
 	</div>
+
 </template>
 
 <script>
@@ -25,14 +27,13 @@ import {ref, computed} from 'vue';
 import { useStore } from 'vuex';
 export default {
 	setup(){
+		const authorisation = ref(false);
 		const email = ref('');
 		const password = ref('');
 		const formIsValid = ref(true);
 		const mode = ref('login');
-		const isLoading = ref(false);
 		const error = ref('');
 		const store = useStore();
-		const baseDialogFlash= true;
 
 	const switchModeTextButton = computed(()=>{
 		if (mode.value === 'login'){
@@ -59,6 +60,13 @@ const sumbitButtonText = computed(()=>{
 		}
 })
 
+const isLoading = computed(()=>{
+	if (authorisation.value && !store.getters['auth/userId']) {
+		return true
+	} else {
+		authorisation.value = false
+		return false}
+})
 	function swichMode(){
 		if (mode.value === 'login'){
 			mode.value ="signUp"
@@ -68,7 +76,7 @@ const sumbitButtonText = computed(()=>{
 	}
 
 	function toggleDialog(){
-		isLoading.value=false
+		authorisation.value=false
 	}
 
 	async function sumbitForm(){
@@ -76,7 +84,7 @@ const sumbitButtonText = computed(()=>{
 		if (email.value=='' || !email.value.includes('@') || password.value.length<6){
 			formIsValid.value=false;
 		}
-		isLoading.value=true
+		authorisation.value=true
 		try{
 			if(mode.value==="login"){
 							store.dispatch('auth/login',{
@@ -91,14 +99,13 @@ const sumbitButtonText = computed(()=>{
 			}
 		} catch(err){
 			error.value = err.message || 'signup not completed :-/';
+			authorisation.value=false
 		}
 		email.value = null
 		password.value = null
-		isLoading.value=false
 	}
 
 		return{
-			baseDialogFlash,
 			email,
 			password,
 			formIsValid,
