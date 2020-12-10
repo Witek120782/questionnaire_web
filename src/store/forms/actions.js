@@ -25,7 +25,7 @@ export default{
 			formsList = snapshot.val()
 			for (const item in formsList){
 				context.commit('addForm', {
-					id: formsList[item].id._value,
+				id: formsList[item].id,
 				title: formsList[item].title._value,
 				reqRating: formsList[item].reqRating._value,
 				reqRatingColour: formsList[item].reqRatingColour._value,

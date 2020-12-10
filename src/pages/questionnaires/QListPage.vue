@@ -1,9 +1,8 @@
 <template>
 	<div class="wrapper">questionnaires list page
-		<!-- base dialog doesnt work -->
-		<base-dialog v-if="isLoading" :ifFlashing="baseDialogFlash" message="loading..." @hide-show="toggleDialog"></base-dialog>
+		<base-dialog v-if="listOfForms.length==0" :ifFlashing="baseDialogFlash" message="loading..." @hide-show="toggleDialog"></base-dialog>
 		<ul v-for="form in listOfForms" :key="form.formId">
-			<li>title: {{form.title}}</li>
+			<router-link :to="/questionnaire/ + form.id">title: {{form.title}}</router-link>
 		</ul>
 		<base-button toLink="/questionnaire/add" mode="link">Add New Questionnaire</base-button>
 	</div>
@@ -12,14 +11,14 @@
 <script>
 import { useStore } from 'vuex'
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
 	setup(){
 		const store = useStore()
 		const error = ref('')
-		const isLoading = ref(false)
+		const router = useRouter()
 
 		const listOfForms = computed(()=>{
-			isLoading.value=true
 			try{
 			if (store.getters['forms/listOfFolderNames'].length < 2){
 				store.dispatch('forms/readForms')
@@ -27,14 +26,12 @@ export default {
 			catch(err){
 			error.value = err.message || 'signup not completed :-/';
 		}
-		isLoading.value=false
+			console.log(store.getters['forms/listOfFolderNames'])
 			return store.getters['forms/listOfFolderNames']
 		})
-
-
 		return{
-			isLoading,
 			listOfForms,
+			router
 		}
 	}
 	
