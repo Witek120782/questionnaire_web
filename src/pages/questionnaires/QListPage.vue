@@ -1,6 +1,6 @@
 <template>
 	<div class="wrapper">questionnaires list page
-		<base-dialog v-if="listOfForms.length==0" :ifFlashing="baseDialogFlash" message="loading..." @hide-show="toggleDialog"></base-dialog>
+		<base-dialog v-if="listOfForms.length==0" :ifFlashing="true" message="loading..."/>
 		<ul v-for="form in listOfForms" :key="form.formId">
 			<router-link :to="/questionnaire/ + form.id">title: {{form.title}}</router-link>
 		</ul>
@@ -26,7 +26,6 @@ export default {
 			catch(err){
 			error.value = err.message || 'signup not completed :-/';
 		}
-			console.log(store.getters['forms/listOfFolderNames'])
 			return store.getters['forms/listOfFolderNames']
 		})
 		return{
