@@ -7,15 +7,9 @@ export default{
 	state(){
 		return{
 			forms:[{
-<<<<<<< HEAD
 				id:'000',
 				title:'tytul12',
 				pictures:'',
-=======
-				id:'',
-				title:'',
-				pictures:'', // I think this is useless
->>>>>>> store
 				reqRating: false,
 				reqRatingColour: false,
 				reqRagingDesign: false,
