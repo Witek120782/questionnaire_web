@@ -9,7 +9,7 @@ export default{
 			forms:[{
 				id:'',
 				title:'',
-				pictures:'',
+				pictures:'', // I think this is useless
 				reqRating: false,
 				reqRatingColour: false,
 				reqRagingDesign: false,
