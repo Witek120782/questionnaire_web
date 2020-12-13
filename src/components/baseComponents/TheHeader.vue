@@ -4,11 +4,7 @@
 	<base-button toLink="/home" mode="link">Home Page</base-button>
 	<base-button v-if="ifLogged" toLink="/questionnaire" mode="link">Questionnaires</base-button>
 	<base-button v-if="!ifLogged" toLink="/auth" mode="link">Login</base-button>
-	<base-button v-else @click="logout" mode="button">
-		<template v-slot:buttonSlot>
-			Logout
-		</template>
-	</base-button>
+	<base-button v-else @click="logout" toLink="/home" mode="link">Logout</base-button>
 </div>
 </template>
 
@@ -24,6 +20,7 @@ export default {
 
 		function logout(){
 			store.dispatch('auth/logout')
+
 		}
 
 		return{

@@ -25,7 +25,7 @@ export default{
 			})
 		}
 		return formsList
-	}
+	},
 
 	// i think this is useless
 	getPhotosForFolderName(state, param){
