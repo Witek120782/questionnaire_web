@@ -1,6 +1,6 @@
 <template>
 	<div class="single-form">
-		<h1 class="form-title">Welcome in questionnaire: {{form.title}}</h1>
+		<h1 class="form-title">Welcome in questionnaire: {{form.title}} {{form.qtyInPolybag}}</h1>
 		<div class="form-body">
 			<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true"></base-card>
 			<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true"></base-card>
