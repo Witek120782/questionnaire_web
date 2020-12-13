@@ -1,14 +1,28 @@
 <template>
 	<div class="single-form">
-		here we are {{form.title}}
-		<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true" :sizes="sizerange"></base-card>
+		<h1 class="form-title">Welcome in questionnaire: {{form.title}}</h1>
+		<div class="form-body">
+			<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true"></base-card>
+			<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true"></base-card>
+			<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true"></base-card>
+			<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true"></base-card>
+			<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true"></base-card>
+			<base-card title="tytuł kardy" ifRating="true" designRating="true" colourRating="true" :pcsToPolybag="true"></base-card>
+
+
+		</div>
+		<div class="form-comments">
+			comments
+		</div>
+		<base-card></base-card>
+		<button>Send answers</button>
 	</div>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import BaseCard from '../components/baseComponents/BaseCard.vue'
+import BaseCard from '../../components/baseComponents/BaseCard.vue'
 
 export default {
 	props:['id'],
@@ -19,7 +33,7 @@ export default {
 	const store = useStore()
 
 	const form = computed(()=>{
-		return [...store.getters['forms/listOfFolderNames']].filter(item =>{
+		return [...store.getters['forms/getAllForms']].filter(item =>{
 			if (item.id == props.id) return item
 		})[0]
 	})
@@ -30,3 +44,13 @@ return{
 	}
 }
 </script>
+
+<style>
+	.form-body{
+		display: grid;
+		margin: 10px;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-column-gap: 10px;
+		grid-row-gap: 10px;
+	}
+</style>

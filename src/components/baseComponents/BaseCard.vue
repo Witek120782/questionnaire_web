@@ -76,7 +76,7 @@ export default {
 <style scoped>
 .baseCardWrapper{
 	min-width: 15vw;
-	min-height: 40vh;
+	height: 60vh;
 	margin:0;
 	padding: 5px;
 	display: grid;
