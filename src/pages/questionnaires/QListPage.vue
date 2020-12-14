@@ -2,7 +2,8 @@
 	<div class="wrapper">questionnaires list page
 		<base-dialog v-if="listOfForms.length==0" :ifFlashing="true" message="loading..."/>
 		<ul v-for="form in listOfForms" :key="form.formId">
-			<router-link :to="/questionnaire/ + form.id">title: {{form.title}}</router-link>
+			<router-link :to="/questionnaire/ + form.id">
+			<div @click="loadPhotos(form.id)">title: {{form.title}}</div></router-link>
 		</ul>
 		<base-button toLink="/questionnaire/add" mode="link">Add New Questionnaire</base-button>
 	</div>
@@ -28,8 +29,15 @@ export default {
 		}
 			return store.getters['forms/listOfFolderNames']
 		})
+
+		function loadPhotos(id){
+			store.dispatch('photos/dowloadImages', {
+			formId: id
+			})
+		}
 		return{
 			listOfForms,
+			loadPhotos,
 			router
 		}
 	}

@@ -1,7 +1,9 @@
 <template>
 	<div class="baseCardWrapper">
 		<div class="title">{{ title }}</div>
-		<div class="photo">photo</div>
+		<div class="photo">photo2
+			<img :src="urlAdress" alt="">
+		</div>
 		<div class="rating">rating
 			<radio-rating v-if="ifRating" name="mainRating" title="main Rating component" :ratingValue="ratingMainValue" @update:ratingValue="ratingMainValue = $event"/>
 			<radio-rating v-if="colourRating" name="colourRating" title="colour Rating component" :ratingValue="ratingColourValue" @update:ratingValue="ratingColourValue = $event"/>
@@ -36,9 +38,10 @@ export default {
 		'colourRating',
 		'designRating',
 		'sizes',
-		'pcsToPolybag'
+		'pcsToPolybag',
+		'urlAdress'
 	],
-	setup(){
+	setup(props){
 		const ratingMainValue = ref('neutral');
 		const ratingColourValue = ref('neutral');
 		const ratingDesignValue = ref('neutral');
@@ -52,6 +55,7 @@ export default {
 		})
 
 		function showRatings(){
+			console.log(props.urlAdress)
 			console.log(ratingMainValue.value)
 			console.log(ratingColourValue.value)
 			console.log(ratingDesignValue.value)
@@ -75,7 +79,7 @@ export default {
 
 <style scoped>
 .baseCardWrapper{
-	min-width: 15vw;
+	/* min-width: 15vw; */
 	height: 60vh;
 	margin:0;
 	padding: 5px;
@@ -99,9 +103,13 @@ export default {
 	border-top: 1px solid black;
 	background-color: honeydew;
 }
+.photo img{
+	max-width: 10vw;
+	max-height: 60vh;
+}
 .rating{
 	justify-self: center;
-	background-color: indigo;
+	background-color:blanchedalmond;
 }
 
 .badInputNo{

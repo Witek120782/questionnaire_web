@@ -14,20 +14,31 @@ export default {
 		})
 	},
 
-	async dowloadImages(_, commit, getters, _2, payload){
+	// async dowloadImages(_, commit, getters, _2, payload){
+async dowloadImages(context, payload){
 		let imagesList = []
-		defaultStorage.ref(payload.formId).listAll.then(item => {
+		defaultStorage.ref(payload.formId).listAll().then(item => {
 			item.items.forEach(itemRef => {
 				itemRef.getDownloadURL().then(imgUrl => {
-					imagesList.push(imgUrl)
-				})
+					if(!imgUrl.toString().includes('item') && !imgUrl.toString().includes('undefined')){
+						imagesList.push(imgUrl)
+					}
+					})
+				
 			})
 		})
-		if (!getters.listOfFolderNames.includes(payload.formId)){
-			commit('addPhotos',{
-				formId: payload.formId,
-				pictures: imagesList
-			})
-		}
+		console.log('here: ' + payload.formId)
+		console.log(imagesList)
+
+		// if (!getters.listOfFolderNames.includes(payload.formId)){
+		// 	commit('addPhotos',{
+		// 		formId: payload.formId,
+		// 		pictures: imagesList
+		// 	})
+		// }
+		context.commit('addPhotos',{
+			formId: payload.formId,
+			pictures: imagesList
+		})
 	}
 }

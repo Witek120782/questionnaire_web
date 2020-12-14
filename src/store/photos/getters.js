@@ -7,9 +7,8 @@ export default{
 		return folderNames
 	},
 
-	getPhotosForFolderName(state, param){
-		return state.photos.filter(item=>{
-			return item.formId === param
-		})
+	getAllPhotos(state){
+		console.log('in GAP')
+		return state.photos
 	}
 }
