@@ -9,7 +9,7 @@
 			:colourRating="colourRating" 
 			:pcsToPolybag="qtyInPolybag"
 			:sizes="sizes" 
-			:urlAdress="photo"/>
+			:photo="photo"/>
 		</div>
 		</div>
 		<div class="form-comments">
@@ -70,7 +70,7 @@ export default {
 
 	function testFunc (){
 			showPhoto.value = !showPhoto.value
-			console.log(showPhoto.value)
+			console.log(photos.value[0])
 	}
 	
 return{

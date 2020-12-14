@@ -1,8 +1,8 @@
 <template>
 	<div class="baseCardWrapper">
-		<div class="title">{{ title }}</div>
-		<div class="photo">photo2
-			<img :src="urlAdress" alt="">
+		<div class="title">{{ photo.name }}</div>
+		<div class="photo">
+			<img :src="photo.url" alt="">
 		</div>
 		<div class="rating">rating
 			<radio-rating v-if="ifRating" name="mainRating" title="main Rating component" :ratingValue="ratingMainValue" @update:ratingValue="ratingMainValue = $event"/>
@@ -39,7 +39,7 @@ export default {
 		'designRating',
 		'sizes',
 		'pcsToPolybag',
-		'urlAdress'
+		'photo'
 	],
 	setup(props){
 		const ratingMainValue = ref('neutral');
@@ -104,8 +104,8 @@ export default {
 	background-color: honeydew;
 }
 .photo img{
-	max-width: 10vw;
-	max-height: 60vh;
+	max-width: 20vw;
+	max-height: 40vh;
 }
 .rating{
 	justify-self: center;

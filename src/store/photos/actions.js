@@ -21,7 +21,12 @@ async dowloadImages(context, payload){
 			item.items.forEach(itemRef => {
 				itemRef.getDownloadURL().then(imgUrl => {
 					if(!imgUrl.toString().includes('item') && !imgUrl.toString().includes('undefined')){
-						imagesList.push(imgUrl)
+						// imagesList.push(imgUrl)
+						console.log(itemRef.name)
+						imagesList.push({
+							url: imgUrl,
+							name: itemRef.name
+						})
 					}
 					})
 				
