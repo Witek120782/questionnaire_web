@@ -9,7 +9,8 @@
 			:colourRating="colourRating" 
 			:pcsToPolybag="qtyInPolybag"
 			:sizes="sizes" 
-			:photo="photo"/>
+			:photo="photo"
+			@send-data="showData"/>
 		</div>
 		</div>
 		<div class="form-comments">
@@ -72,6 +73,11 @@ export default {
 			showPhoto.value = !showPhoto.value
 			console.log(photos.value[0])
 	}
+
+	const showData= computed ((data)=>{
+		console.log('here')
+		console.log(data)
+	})
 	
 return{
 	colourRating,
@@ -81,6 +87,7 @@ return{
 	photos,
 	testFunc,
 	sizes,
+	showData,
 	showPhoto,
 	qtyInPolybag
 }

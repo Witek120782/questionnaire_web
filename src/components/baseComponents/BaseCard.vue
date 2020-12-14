@@ -41,7 +41,7 @@ export default {
 		'pcsToPolybag',
 		'photo'
 	],
-	setup(props){
+	setup(props, {emit}){
 		const ratingMainValue = ref('neutral');
 		const ratingColourValue = ref('neutral');
 		const ratingDesignValue = ref('neutral');
@@ -61,9 +61,15 @@ export default {
 			console.log(ratingDesignValue.value)
 			console.log(pcsInBag.value)
 			console.log(chooseSizeRange.value)
-		}
+			// emit doesn't work correct
+			emit('send-data', {
+			optionName: props.photo.name,
+			ratingMainValue,
+			pcsInBag
+			})
+	}
 
-
+	
 		return{
 			ratingMainValue,
 			ratingColourValue,
