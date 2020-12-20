@@ -1,4 +1,4 @@
-<template>
+	<template>
 	<div class="baseCardWrapper">
 		<div class="title">{{ photo.name }}</div>
 		<div class="photo">
@@ -15,7 +15,7 @@
 			</select>
 		</div>
 		<div class="pcsToPolybag" v-if="pcsToPolybag">
-			<input type="number" id="pcs" name="pcsInPoly" v-model="pcsInBag"><label for="pcsInPoly">pcs in polybag</label>
+			<input type="number" id="pcs" name="pcsInPoly" v-model="pcsInBag" @change="showRatings"><label for="pcsInPoly">pcs in polybag</label>
 		</div>
 	</div>
 	<p class="badInputNo" v-if="badInputNo">the number should be an integer greater than zero</p>
@@ -41,7 +41,8 @@ export default {
 		'pcsToPolybag',
 		'photo'
 	],
-	setup(props, {emit}){
+	emits:['send-data'],
+	setup(props, context){
 		const ratingMainValue = ref('neutral');
 		const ratingColourValue = ref('neutral');
 		const ratingDesignValue = ref('neutral');
@@ -55,14 +56,16 @@ export default {
 		})
 
 		function showRatings(){
-			console.log(props.urlAdress)
-			console.log(ratingMainValue.value)
-			console.log(ratingColourValue.value)
-			console.log(ratingDesignValue.value)
-			console.log(pcsInBag.value)
-			console.log(chooseSizeRange.value)
+			// console.log(props.urlAdress)
+			// console.log(ratingMainValue.value)
+			// console.log(ratingColourValue.value)
+			// console.log(ratingDesignValue.value)
+			// console.log(pcsInBag.value)
+			// console.log(chooseSizeRange.value)
 			// emit doesn't work correct
-			emit('send-data', {
+
+			// emit trzeba zrobić globalne i dodac do każdego checkboxu
+			context.emit('send-data', {
 			optionName: props.photo.name,
 			ratingMainValue,
 			pcsInBag

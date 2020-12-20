@@ -33,6 +33,7 @@ export default {
 	setup(props){
 	const store = useStore()
 	const showPhoto = ref(false)
+	const answers = ref([])
 
 		const photos = ref(store.getters['photos/getAllPhotos'].filter(item =>{
 			if (item.formId == props.id) return item
@@ -71,13 +72,23 @@ export default {
 
 	function testFunc (){
 			showPhoto.value = !showPhoto.value
-			console.log(photos.value[0])
 	}
 
-	const showData= computed ((data)=>{
-		console.log('here')
-		console.log(data)
-	})
+	function showData (data){
+		let index = answers.value.findIndex((item)=>{
+			if(item.photoName === data.optionName) return true
+		})
+		if (index == -1){
+		answers.value.push({
+			photoName: data.optionName,
+			ratingMainValue: data.ratingMainValue.value,
+			pcsInBag: data.pcsInBag.value
+		})}
+		else{
+			answers.value[index].ratingMainValue = data.ratingMainValue.value,
+			answers.value[index].pcsInBag = data.pcsInBag.value
+		}
+	}
 	
 return{
 	colourRating,
