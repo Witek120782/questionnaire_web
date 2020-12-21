@@ -17,6 +17,10 @@
 			comments
 		</div>
 		<button @click="testFunc">Send answers</button>
+		<div v-for="item in answers" :key="item.optionName">
+			<div>{{item.optionName}}</div>
+			<div>{{item.ratingMainValue}} / {{item.ratingColourValue}} / {{item.ratingDesignValue}} / {{item.pcsInBag}} / {{item.chooseSizeRange}}</div>
+		</div>
 	</div>
 </template>
 
@@ -76,21 +80,28 @@ export default {
 
 	function showData (data){
 		let index = answers.value.findIndex((item)=>{
-			if(item.photoName === data.optionName) return true
+			if(item.optionName === data.optionName) return true
 		})
 		if (index == -1){
 		answers.value.push({
-			photoName: data.optionName,
+			optionName: data.optionName,
 			ratingMainValue: data.ratingMainValue.value,
-			pcsInBag: data.pcsInBag.value
+			ratingColourValue: data.ratingColourValue.value,
+			ratingDesignValue: data.ratingDesignValue.value,
+			pcsInBag: data.pcsInBag.value,
+			chooseSizeRange: data.chooseSizeRange.value 
 		})}
 		else{
 			answers.value[index].ratingMainValue = data.ratingMainValue.value,
-			answers.value[index].pcsInBag = data.pcsInBag.value
-		}
+			answers.value[index].ratingColourValue= data.ratingColourValue.value,
+			answers.value[index].ratingDesignValue= data.ratingDesignValue.value,
+			answers.value[index].pcsInBag= data.pcsInBag.value,
+			answers.value[index].chooseSizeRange= data.chooseSizeRange.value
+			}
 	}
 	
 return{
+	answers,
 	colourRating,
 	designRaging,
 	form,

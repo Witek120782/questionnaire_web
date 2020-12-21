@@ -5,21 +5,20 @@
 			<img :src="photo.url" alt="">
 		</div>
 		<div class="rating">rating
-			<radio-rating v-if="ifRating" name="mainRating" title="main Rating component" :ratingValue="ratingMainValue" @update:ratingValue="ratingMainValue = $event"/>
-			<radio-rating v-if="colourRating" name="colourRating" title="colour Rating component" :ratingValue="ratingColourValue" @update:ratingValue="ratingColourValue = $event"/>
-			<radio-rating v-if="designRating" name="designRating" title="design Rating component" :ratingValue="ratingDesignValue" @update:ratingValue="ratingDesignValue = $event"/>
+			<radio-rating v-if="ifRating" name="mainRating" title="main Rating component" :ratingValue="ratingMainValue" @update:ratingValue="ratingMainValue = $event" @change="emitData" />
+			<radio-rating v-if="colourRating" name="colourRating" title="colour Rating component" :ratingValue="ratingColourValue" @update:ratingValue="ratingColourValue = $event" @change="emitData" />
+			<radio-rating v-if="designRating" name="designRating" title="design Rating component" :ratingValue="ratingDesignValue" @update:ratingValue="ratingDesignValue = $event" @change="emitData" />
 		<div class="sizeToChoose" v-if="sizes && sizes.length>0">
 			<label for="sizeRange">Choose a size range:</label>
-			<select name="sizeRange" id="sizeRange" v-model="chooseSizeRange">
+			<select name="sizeRange" id="sizeRange" v-model="chooseSizeRange" @change="emitData">
 					<option v-for="size in sizes" :value="size" :key="size" >{{ size }}</option>
 			</select>
 		</div>
 		<div class="pcsToPolybag" v-if="pcsToPolybag">
-			<input type="number" id="pcs" name="pcsInPoly" v-model="pcsInBag" @change="showRatings"><label for="pcsInPoly">pcs in polybag</label>
+			<input type="number" id="pcs" name="pcsInPoly" v-model="pcsInBag" @change="emitData"><label for="pcsInPoly">pcs in polybag</label>
 		</div>
 	</div>
 	<p class="badInputNo" v-if="badInputNo">the number should be an integer greater than zero</p>
-	<button @click="showRatings">click</button>
 	</div>
 </template>
 
@@ -50,25 +49,19 @@ export default {
 		const chooseSizeRange = ref('');
 
 		const badInputNo = computed(()=>{
-			if (pcsInBag.value<0 || pcsInBag.value%1!=0 || pcsInBag.value.includes('3')){
+			if (pcsInBag.value<0 || pcsInBag.value%1!=0){
 				return true
 			}else return false
 		})
 
-		function showRatings(){
-			// console.log(props.urlAdress)
-			// console.log(ratingMainValue.value)
-			// console.log(ratingColourValue.value)
-			// console.log(ratingDesignValue.value)
-			// console.log(pcsInBag.value)
-			// console.log(chooseSizeRange.value)
-			// emit doesn't work correct
-
-			// emit trzeba zrobić globalne i dodac do każdego checkboxu
+		function emitData(){
 			context.emit('send-data', {
-			optionName: props.photo.name,
-			ratingMainValue,
-			pcsInBag
+				optionName: props.photo.name,
+				ratingMainValue,
+				ratingColourValue,
+				ratingDesignValue,
+				pcsInBag,
+				chooseSizeRange
 			})
 	}
 
@@ -80,7 +73,7 @@ export default {
 			pcsInBag,
 			chooseSizeRange,
 			badInputNo,
-			showRatings
+			emitData
 		}
 	}
 }
