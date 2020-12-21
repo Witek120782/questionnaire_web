@@ -5,9 +5,9 @@
 			<img :src="photo.url" alt="">
 		</div>
 		<div class="rating">rating
-			<radio-rating v-if="ifRating" name="mainRating" title="main Rating component" :ratingValue="ratingMainValue" @update:ratingValue="ratingMainValue = $event" @change="emitData" />
-			<radio-rating v-if="colourRating" name="colourRating" title="colour Rating component" :ratingValue="ratingColourValue" @update:ratingValue="ratingColourValue = $event" @change="emitData" />
-			<radio-rating v-if="designRating" name="designRating" title="design Rating component" :ratingValue="ratingDesignValue" @update:ratingValue="ratingDesignValue = $event" @change="emitData" />
+			<radio-rating v-if="ifRating" :name="photo.name+1" title="main Rating component"  :ratingValue="ratingMainValue" @give-back-value="getMainValue" @change="emitData" />
+			<radio-rating v-if="colourRating" :name="photo.name+2" title="colour Rating component" :ratingValue="ratingColourValue" @give-back-value="getColourValue" @change="emitData" />
+			<radio-rating v-if="designRating" :name="photo.name+3" title="design Rating component" :ratingValue="ratingDesignValue" @give-back-value="getDesignValue" @change="emitData" />
 		<div class="sizeToChoose" v-if="sizes && sizes.length>0">
 			<label for="sizeRange">Choose a size range:</label>
 			<select name="sizeRange" id="sizeRange" v-model="chooseSizeRange" @change="emitData">
@@ -55,6 +55,7 @@ export default {
 		})
 
 		function emitData(){
+			console.log(ratingMainValue)
 			context.emit('send-data', {
 				optionName: props.photo.name,
 				ratingMainValue,
@@ -65,8 +66,23 @@ export default {
 			})
 	}
 
+	function getMainValue (data){
+		console.log('ingetMainValue')
+		console.log(data)
+ratingMainValue.value = data
+	}
+	function getColourValue (data){
+		ratingColourValue.value = data
+	}
+	function getDesignValue (data){
+		ratingDesignValue.value = data
+	}
+
 	
 		return{
+			getColourValue,
+			getDesignValue,
+			getMainValue,
 			ratingMainValue,
 			ratingColourValue,
 			ratingDesignValue,

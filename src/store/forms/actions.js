@@ -2,7 +2,6 @@ import { defaultDatabase } from '../../firebase.js';
 
 export default{
 	async addForm(context, payload){
-		console.log("in action")
 		const newForm = {
 				id: payload.formId,
 				title: payload.title,

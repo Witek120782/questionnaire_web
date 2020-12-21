@@ -1,31 +1,31 @@
 <template>
 				<div class="designRating"> {{ title }}
-				<input type="radio" id="bad" :name="name" value="bad" v-model="valueRating">
+				<input type="radio" id="bad" :name="name" value="bad" v-model="valueRating" @change="sendValue">
 				<label :for="name">bad</label>
-				<input type="radio" id="neutral" :name="name" value="neutral" v-model="valueRating" checked>
+				<input type="radio" id="neutral" :name="name" value="neutral" v-model="valueRating" @change="sendValue" checked>
 				<label :for="name">neutral</label>
-				<input type="radio" id="good" :name="name" value="good" v-model="valueRating">
+				<input type="radio" id="good" :name="name" value="good" v-model="valueRating" @change="sendValue">
 				<label :for="name">good</label>
 			</div>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { ref } from 'vue';
 export default {
 	props:[
 		'name',
 		'title',
-		'ratingValue'
+		'ratingValue',
 	],
-	setup(props, {emit}){
-		const valueRating = computed({ 
-   get: () => props.ratingValue, 
-   set: (value) => emit('update:ratingValue', value) 
-		})
-		
-		
-		return{
-			valueRating
+	emits:['give-back-value'],
+	setup(props, context){
+		const valueRating = ref()
+	function sendValue (){
+			context.emit('give-back-value', valueRating.value)
+		}		
+		return {
+			valueRating,
+			sendValue
 		}
 	}
 }
