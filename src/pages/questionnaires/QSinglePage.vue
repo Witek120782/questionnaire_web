@@ -48,11 +48,15 @@ export default {
 	
 	const form = computed(()=>{
 		return [...store.getters['forms/getAllForms']].filter(item =>{
-			if (item.id == props.id) return item
+			if (item.id == props.id) {
+				console.log('in store return')
+				return item}
 		})[0]
 	})
 
 	const ifRating = computed(()=>{
+		console.log('in ifRating')
+		console.log(form.value)
 		if (form.value.reqRating == 'rating') return true;
 		else return false;
 	})
@@ -62,7 +66,11 @@ export default {
 	})
 
 	const designRaging = computed(()=>{
-		if (ifRating.value) return form.value.reqRagingDesign
+		console.log('in RagignDesign')
+		if (ifRating.value) {
+			console.log('in RagignDesign')
+			return form.value.reqRagingDesign
+			}
 	})
 
 	const qtyInPolybag = computed(()=>{
@@ -76,6 +84,8 @@ export default {
 
 	function testFunc (){
 			showPhoto.value = !showPhoto.value
+			console.log(form)
+			console.log(designRaging.value)
 	}
 
 	function showData (data){

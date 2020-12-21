@@ -3,7 +3,7 @@
 				<input type="radio" id="bad" :name="name" value="bad" v-model="valueRating">
 				<label :for="name">bad</label>
 				<input type="radio" id="neutral" :name="name" value="neutral" v-model="valueRating" checked>
-				<label :for="name">nautral</label>
+				<label :for="name">neutral</label>
 				<input type="radio" id="good" :name="name" value="good" v-model="valueRating">
 				<label :for="name">good</label>
 			</div>
@@ -19,14 +19,14 @@ export default {
 	],
 	setup(props, {emit}){
 		const valueRating = computed({ 
-      get: () => props.ratingValue, 
-      set: (value) => emit('update:ratingValue', value) 
-				})
-				
-				return{
-					valueRating
-				}
-
+   // get: () => props.ratingValue, 
+   set: (value) => emit('update:ratingValue', value) 
+		})
+		
+		
+		return{
+			valueRating
+		}
 	}
 }
 </script>
