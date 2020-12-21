@@ -27,7 +27,7 @@ export default{
 				context.commit('addForm', {
 				id: formsList[item].id,
 				title: formsList[item].title._value,
-				reqRating: formsList[item].reqRating._value,
+				reqRating: formsList[item].reqRating,
 				reqRatingColour: formsList[item].reqRatingColour._value,
 				reqRagingDesign: formsList[item].reqRagingDesign._value,
 				qtyInPolybag: formsList[item].qtyInPolybag._value,

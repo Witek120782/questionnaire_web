@@ -1,9 +1,7 @@
 import { defaultStorage } from '../../firebase.js';
 
 export default {
-	async uploadImages(context, payload){
-		console.log("in uploadImages")
-		
+	async uploadImages(context, payload){		
 		for (const file in payload.imagesList){
 			defaultStorage.ref(payload.formId + '/' + payload.imagesList[file].name).put(payload.imagesList[file])
 		}
@@ -22,7 +20,6 @@ async dowloadImages(context, payload){
 				itemRef.getDownloadURL().then(imgUrl => {
 					if(!imgUrl.toString().includes('item') && !imgUrl.toString().includes('undefined')){
 						// imagesList.push(imgUrl)
-						console.log(itemRef.name)
 						imagesList.push({
 							url: imgUrl,
 							name: itemRef.name
@@ -32,8 +29,6 @@ async dowloadImages(context, payload){
 				
 			})
 		})
-		console.log('here: ' + payload.formId)
-		console.log(imagesList)
 
 		// if (!getters.listOfFolderNames.includes(payload.formId)){
 		// 	commit('addPhotos',{

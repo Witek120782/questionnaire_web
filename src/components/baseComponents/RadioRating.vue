@@ -19,7 +19,7 @@ export default {
 	],
 	setup(props, {emit}){
 		const valueRating = computed({ 
-   // get: () => props.ratingValue, 
+   get: () => props.ratingValue, 
    set: (value) => emit('update:ratingValue', value) 
 		})
 		

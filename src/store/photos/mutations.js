@@ -4,6 +4,5 @@ export default{
 			formId: payload.formId,
 			pictures: payload.pictures
 		})
-		console.log('in add photos')
 	}
 }

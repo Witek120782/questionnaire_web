@@ -8,7 +8,6 @@ export default{
 	},
 
 	getAllPhotos(state){
-		console.log('in GAP')
 		return state.photos
 	}
 }

@@ -3,9 +3,9 @@
 		<h1 class="form-title">Welcome in questionnaire: {{form.title}} {{form.qtyInPolybag}}</h1>
 		<div class="form-body" v-if="showPhoto">
 			<div v-for="photo in photos" :key="photo">
-			<base-card title="tytuł kardy" 
+			<base-card title="tytuł karty" 
 			:ifRating="ifRating" 
-			:designRating="designRaging" 
+			:designRating="designRating" 
 			:colourRating="colourRating" 
 			:pcsToPolybag="qtyInPolybag"
 			:sizes="sizes" 
@@ -49,14 +49,11 @@ export default {
 	const form = computed(()=>{
 		return [...store.getters['forms/getAllForms']].filter(item =>{
 			if (item.id == props.id) {
-				console.log('in store return')
 				return item}
 		})[0]
 	})
 
 	const ifRating = computed(()=>{
-		console.log('in ifRating')
-		console.log(form.value)
 		if (form.value.reqRating == 'rating') return true;
 		else return false;
 	})
@@ -65,10 +62,8 @@ export default {
 		if (ifRating.value) return form.value.reqRatingColour
 	})
 
-	const designRaging = computed(()=>{
-		console.log('in RagignDesign')
+	const designRating = computed(()=>{
 		if (ifRating.value) {
-			console.log('in RagignDesign')
 			return form.value.reqRagingDesign
 			}
 	})
@@ -83,9 +78,7 @@ export default {
 
 
 	function testFunc (){
-			showPhoto.value = !showPhoto.value
-			console.log(form)
-			console.log(designRaging.value)
+		showPhoto.value = !showPhoto.value
 	}
 
 	function showData (data){
@@ -113,7 +106,7 @@ export default {
 return{
 	answers,
 	colourRating,
-	designRaging,
+	designRating,
 	form,
 	ifRating,
 	photos,
