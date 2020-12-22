@@ -98,8 +98,9 @@ export default {
 
 	function testFunc (){	
 		console.log('send answers')	
-		console.log(photos.value)
-		console.log(showPhotos)
+
+		console.log(new Date().toISOString())
+		console.log(new Date().toLocaleString())
 	}
 
 	function showData (data){
