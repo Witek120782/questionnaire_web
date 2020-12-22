@@ -1,5 +1,5 @@
 export default{
-	addAnwer(state, payload){
+	addAnswer(state, payload){
 		state.answers.push(payload)
 	},
 	clearAnswers(state){

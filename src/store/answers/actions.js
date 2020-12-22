@@ -2,35 +2,36 @@ import { defaultDatabase } from '../../firebase.js';
 
 export default{
 	async addAnswer(context, payload){
+		console.log('payload')
+		console.log(payload)
 		const newAnswer = {
-				id: payload.id,
-				formId: payload.formId,
-				formTitle: payload.formTitle,
-				userName: payload.userName,
-				answers: payload.answers,
-				comments: payload.comments,
-				responseTime: payload.responseTime
+				id: payload.newAnswer.id,
+				formId: payload.newAnswer.formId,
+				formTitle: payload.newAnswer.formTitle,
+				userName: payload.newAnswer.userName,
+				answers: payload.newAnswer.answers,
+				comments: payload.newAnswer.comments,
+				responseTime: payload.newAnswer.responseTime
 		};
-		defaultDatabase.ref('answers/' + payload.id).set(newAnswer)
+		defaultDatabase.ref('answers/' + payload.newAnswer.id).set(newAnswer)
 
 		context.commit('addAnswer', newAnswer)
 	},
 
-	async readForms (context){
-		context.commit('clearForms')
-		let formsList = null
-		defaultDatabase.ref('/forms/').once('value').then((snapshot) => {
-			formsList = snapshot.val()
-			for (const item in formsList){
-				context.commit('addForm', {
-				id: formsList[item].id,
-				title: formsList[item].title._value,
-				reqRating: formsList[item].reqRating,
-				reqRatingColour: formsList[item].reqRatingColour._value,
-				reqRagingDesign: formsList[item].reqRagingDesign._value,
-				qtyInPolybag: formsList[item].qtyInPolybag._value,
-				comments: formsList[item].comments._value,
-				sizesRange: formsList[item].sizesRange._value
+	async readAnswers (context){
+		context.commit('clearAnswers')
+		let answersList = null
+		defaultDatabase.ref('/answers/').once('value').then((snapshot) => {
+			answersList = snapshot.val()
+			for (const item in answersList){
+				context.commit('addAnswer', {
+				id: answersList[item].id,
+				formId: answersList[item].formId._value,
+				formTitle: answersList[item].formTitle._value,
+				userName: answersList[item].userName._value,
+				answers: answersList[item].answers._value,
+				comments: answersList[item].comments._value,
+				responseTime: answersList[item].responseTime._value
 				})
 			}
 		})

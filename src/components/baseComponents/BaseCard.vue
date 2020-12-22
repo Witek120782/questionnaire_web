@@ -42,9 +42,9 @@ export default {
 	],
 	emits:['send-data'],
 	setup(props, context){
-		const ratingMainValue = ref();
-		const ratingColourValue = ref();
-		const ratingDesignValue = ref();
+		const ratingMainValue = ref(null);
+		const ratingColourValue = ref(null);
+		const ratingDesignValue = ref(null);
 		const pcsInBag = ref('');
 		const chooseSizeRange = ref('');
 
@@ -55,7 +55,6 @@ export default {
 		})
 
 		function emitData(){
-			console.log(ratingMainValue)
 			context.emit('send-data', {
 				optionName: props.photo.name,
 				ratingMainValue,

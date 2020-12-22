@@ -23,10 +23,6 @@
 			<label for="commnents">Your comment:</label><input type="text" name="comments" placeholder="place for Your comments" v-model="comments"/>
 		</div>
 		<button @click="sendAnswer">Send answers</button>
-		<div v-for="item in answers" :key="item.optionName">
-			<div>{{item.optionName}}</div>
-			<div>{{item.ratingMainValue}} / {{item.ratingColourValue}} / {{item.ratingDesignValue}} / {{item.pcsInBag}} / {{item.chooseSizeRange}}</div>
-		</div>
 	</div>
 </template>
 
@@ -98,51 +94,26 @@ export default {
 
 	async function uploadAnswer(){
 		const newAnswer = {
-			id: form.value.title + "/" + userName.value + "-" + Math.floor(Math.random()*999),
+			id: new Date().getTime() + Math.floor(Math.random()*999),
 			formId: form.value.id,
-			formTite: form.value.title,
-			userName,
-			answers,
-			comments,
+			formTitle: form.value.title,
+			userName: userName.value,
+			answers: answers.value,
+			comments: comments.value,
 			responseTime: new Date().toLocaleString()
 			}
-			console.log(newAnswer)
 			try{
 				await store.dispatch('answers/addAnswer',{
 					newAnswer
 				})
-			}catch(err){
-				console.log('loading answer error' + err)
+			}catch(err){	
+				console.log('loading answer error ' + err)
 			}
 			
 	}
 
 	function sendAnswer (){	
-		console.log('send answers')	
-		console.log(new Date().toLocaleString())
 		uploadAnswer()
-	}
-
-	function showData (data){
-		let index = answers.value.findIndex((item)=>{
-			if(item.optionName === data.optionName) return true
-		})
-		if (index == -1){
-		answers.value.push({
-			optionName: data.optionName,
-			ratingMainValue: data.ratingMainValue.value,
-			ratingColourValue: data.ratingColourValue.value,
-			ratingDesignValue: data.ratingDesignValue.value,
-			pcsInBag: data.pcsInBag.value,
-			chooseSizeRange: data.chooseSizeRange.value 
-		})}
-		else{
-			answers.value[index].ratingMainValue = data.ratingMainValue.value,
-			answers.value[index].ratingColourValue= data.ratingColourValue.value,
-			answers.value[index].ratingDesignValue= data.ratingDesignValue.value,
-			answers.value[index].pcsInBag= data.pcsInBag.value,
-			answers.value[index].chooseSizeRange= data.chooseSizeRange.value
-			}
 	}
 	
 return{
@@ -155,7 +126,6 @@ return{
 	photos,
 	sendAnswer,
 	sizes,
-	showData,
 	showPhotos,
 	userName,
 	validationUserName,
