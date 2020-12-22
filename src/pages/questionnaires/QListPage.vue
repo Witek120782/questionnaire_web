@@ -1,6 +1,7 @@
 <template>
 	<div class="wrapper">questionnaires list page
 		<base-dialog v-if="listOfForms.length==0" :ifFlashing="true" message="loading..."/>
+		<base-dialog v-if="loadPhotosDialog" :ifFlashing="true" message="downloading photos..."/>
 		<ul v-for="form in listOfForms" :key="form.formId">
 			<router-link :to="/questionnaire/ + form.id">
 			<div @click="loadPhotos(form.id)">title: {{form.title}}</div></router-link>
@@ -15,6 +16,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
 	setup(){
+		const loadPhotosDialog = ref(false)
 		const store = useStore()
 		const error = ref('')
 		const router = useRouter()
@@ -30,14 +32,24 @@ export default {
 			return store.getters['forms/listOfFolderNames']
 		})
 
-		function loadPhotos(id){
-			store.dispatch('photos/dowloadImages', {
+		async function loadPhotos(id){
+			loadPhotosDialog.value = true
+			console.log('download starts')
+			try{
+			await store.dispatch('photos/dowloadImages', {
 			formId: id
 			})
+			}catch(err){
+				console.log(err)
+			}
+			loadPhotosDialog.value=false
+			console.log('download ends')
 		}
+
 		return{
 			listOfForms,
 			loadPhotos,
+			loadPhotosDialog,
 			router
 		}
 	}

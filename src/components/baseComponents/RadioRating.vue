@@ -2,7 +2,7 @@
 				<div class="designRating"> {{ title }}
 				<input type="radio" id="bad" :name="name" value="bad" v-model="valueRating" @change="sendValue">
 				<label :for="name">bad</label>
-				<input type="radio" id="neutral" :name="name" value="neutral" v-model="valueRating" @change="sendValue" checked>
+				<input type="radio" id="neutral" :name="name" value="neutral" v-model="valueRating" @change="sendValue">
 				<label :for="name">neutral</label>
 				<input type="radio" id="good" :name="name" value="good" v-model="valueRating" @change="sendValue">
 				<label :for="name">good</label>

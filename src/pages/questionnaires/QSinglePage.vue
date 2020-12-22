@@ -1,7 +1,13 @@
 <template>
 	<div class="single-form">
+		<base-dialog v-if="!showPhotos" :ifFlashing="true" message="loading..."/>
 		<h1 class="form-title">Welcome in questionnaire: {{form.title}} {{form.qtyInPolybag}}</h1>
-		<div class="form-body" v-if="showPhoto">
+		<div class="userName">
+			<label for="userName">Your name:</label>
+			<input type="text" name="userName" placeholder="your name or initials" v-model.trim="userName" @change="validUserNameCheck"/>
+			<p v-if="validationUserName"> User name can not be empty, it should have at least 2 characters </p>
+		</div>
+		<div class="form-body" v-if="showPhotos">
 			<div v-for="photo in photos" :key="photo">
 			<base-card title="tytuł karty" 
 			:ifRating="ifRating" 
@@ -14,7 +20,7 @@
 		</div>
 		</div>
 		<div class="form-comments">
-			comments
+			<label for="commnents">Your comment:</label><input type="text" name="comments" placeholder="place for Your comments" v-model="comments"/>
 		</div>
 		<button @click="testFunc">Send answers</button>
 		<div v-for="item in answers" :key="item.optionName">
@@ -25,7 +31,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed, ref} from 'vue'
 import { useStore } from 'vuex'
 import BaseCard from '../../components/baseComponents/BaseCard.vue'
 
@@ -35,16 +41,23 @@ export default {
 		BaseCard
 	},
 	setup(props){
-	const store = useStore()
-	const showPhoto = ref(false)
 	const answers = ref([])
+	const comments = ref()
+	const showPhotos = ref(false)
+	const store = useStore()	
+	const userName = ref('')
+	const validationUserName = ref(false)
 
-		const photos = ref(store.getters['photos/getAllPhotos'].filter(item =>{
-			if (item.formId == props.id) return item
-		})[0].pictures)
-		setTimeout(()=>{
-			showPhoto.value=true
-		},2000)
+
+
+	const photos = ref(store.getters['photos/getAllPhotos'].filter(item =>{
+				if (item.formId == props.id) return item})[0].pictures)
+
+
+	setTimeout(()=>{
+		showPhotos.value=true
+	},2000)
+
 	
 	const form = computed(()=>{
 		return [...store.getters['forms/getAllForms']].filter(item =>{
@@ -76,9 +89,17 @@ export default {
 		if (!ifRating.value) return form.value.sizesRange
 	})
 
+	function validUserNameCheck(){
+		if (userName.value.length >= 2 && !!userName.value){
+			validationUserName.value = false
+		} else 
+		{ validationUserName.value = true }
+	}
 
-	function testFunc (){
-		showPhoto.value = !showPhoto.value
+	function testFunc (){	
+		console.log('send answers')	
+		console.log(photos.value)
+		console.log(showPhotos)
 	}
 
 	function showData (data){
@@ -106,6 +127,7 @@ export default {
 return{
 	answers,
 	colourRating,
+	comments,
 	designRating,
 	form,
 	ifRating,
@@ -113,7 +135,10 @@ return{
 	testFunc,
 	sizes,
 	showData,
-	showPhoto,
+	showPhotos,
+	userName,
+	validationUserName,
+	validUserNameCheck,
 	qtyInPolybag
 }
 	}

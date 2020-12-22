@@ -42,9 +42,9 @@ export default {
 	],
 	emits:['send-data'],
 	setup(props, context){
-		const ratingMainValue = ref('neutral');
-		const ratingColourValue = ref('neutral');
-		const ratingDesignValue = ref('neutral');
+		const ratingMainValue = ref();
+		const ratingColourValue = ref();
+		const ratingDesignValue = ref();
 		const pcsInBag = ref('');
 		const chooseSizeRange = ref('');
 
@@ -67,9 +67,7 @@ export default {
 	}
 
 	function getMainValue (data){
-		console.log('ingetMainValue')
-		console.log(data)
-ratingMainValue.value = data
+		ratingMainValue.value = data
 	}
 	function getColourValue (data){
 		ratingColourValue.value = data
