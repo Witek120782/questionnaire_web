@@ -22,7 +22,7 @@
 		<div class="form-comments">
 			<label for="commnents">Your comment:</label><input type="text" name="comments" placeholder="place for Your comments" v-model="comments"/>
 		</div>
-		<button @click="testFunc">Send answers</button>
+		<button @click="sendAnswer">Send answers</button>
 		<div v-for="item in answers" :key="item.optionName">
 			<div>{{item.optionName}}</div>
 			<div>{{item.ratingMainValue}} / {{item.ratingColourValue}} / {{item.ratingDesignValue}} / {{item.pcsInBag}} / {{item.chooseSizeRange}}</div>
@@ -96,11 +96,31 @@ export default {
 		{ validationUserName.value = true }
 	}
 
-	function testFunc (){	
-		console.log('send answers')	
+	async function uploadAnswer(){
+		const newAnswer = {
+			id: form.value.title + "/" + userName.value + "-" + Math.floor(Math.random()*999),
+			formId: form.value.id,
+			formTite: form.value.title,
+			userName,
+			answers,
+			comments,
+			responseTime: new Date().toLocaleString()
+			}
+			console.log(newAnswer)
+			try{
+				await store.dispatch('answers/addAnswer',{
+					newAnswer
+				})
+			}catch(err){
+				console.log('loading answer error' + err)
+			}
+			
+	}
 
-		console.log(new Date().toISOString())
+	function sendAnswer (){	
+		console.log('send answers')	
 		console.log(new Date().toLocaleString())
+		uploadAnswer()
 	}
 
 	function showData (data){
@@ -133,7 +153,7 @@ return{
 	form,
 	ifRating,
 	photos,
-	testFunc,
+	sendAnswer,
 	sizes,
 	showData,
 	showPhotos,

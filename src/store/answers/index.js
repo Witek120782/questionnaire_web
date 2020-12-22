@@ -8,14 +8,12 @@ export default{
 		return{
 			answers:[{
 				id:'000',
-				title:'tytul12',
-				pictures:'',
-				reqRating: false,
-				reqRatingColour: false,
-				reqRagingDesign: false,
-				qtyInPolybag: 0,
-				comments: '',
-				sizesRange: ['']
+				formId:'888',
+				formTitle:'tytul12',
+				userName:'',
+				answers:[],
+				comments:'',
+				responseTime:''
 			}]
 		}
 	},
