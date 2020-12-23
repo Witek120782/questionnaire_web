@@ -16,7 +16,7 @@
 			:pcsToPolybag="qtyInPolybag"
 			:sizes="sizes" 
 			:photo="photo"
-			@send-data="showData"/>
+			@send-data="setAnswers"/>
 		</div>
 		</div>
 		<div class="form-comments">
@@ -92,6 +92,32 @@ export default {
 		{ validationUserName.value = true }
 	}
 
+	function setAnswers(data){
+		let index = answers.value.findIndex((item)=>{
+				if(item.optionName == data.optionName) return true
+			}) 
+		if (index == -1){
+			answers.value.push({
+				optionName: data.optionName,
+				ratingMainValue: data.ratingMainValue?data.ratingMainValue.value:null,
+				ratingColourValue: data.ratingColourValue?data.ratingColourValue.value:null,
+				ratingDesignValue: data.ratingDesignValue?data.ratingDesignValue.value:null,
+				pcsInBag: data.pcsInBag?data.pcsInBag.value:null,
+				chooseSizeRange: data.chooseSizeRange?data.chooseSizeRange.value:null
+			})
+		}else{
+			answers.value[index] = {
+				optionName: data.optionName,
+				ratingMainValue: data.ratingMainValue?data.ratingMainValue.value:null,
+				ratingColourValue: data.ratingColourValue?data.ratingColourValue.value:null,
+				ratingDesignValue: data.ratingDesignValue?data.ratingDesignValue.value:null,
+				pcsInBag: data.pcsInBag?data.pcsInBag.value:null,
+				chooseSizeRange: data.chooseSizeRange?data.chooseSizeRange.value:null
+			}
+		}
+		console.log(answers)
+	}
+
 	async function uploadAnswer(){
 		const newAnswer = {
 			id: new Date().getTime() + Math.floor(Math.random()*999),
@@ -114,6 +140,7 @@ export default {
 
 	function sendAnswer (){	
 		uploadAnswer()
+		console.log(answers.value)
 	}
 	
 return{
@@ -125,6 +152,7 @@ return{
 	ifRating,
 	photos,
 	sendAnswer,
+	setAnswers,
 	sizes,
 	showPhotos,
 	userName,
