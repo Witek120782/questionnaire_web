@@ -7,6 +7,7 @@
 			<input type="text" name="userName" placeholder="your name or initials" v-model.trim="userName" @change="validUserNameCheck"/>
 			<p v-if="validationUserName"> User name can not be empty, it should have at least 2 characters </p>
 		</div>
+		<base-button :toLink="'/questionnaire/' + id + '/answers'" mode="link">Answers</base-button>
 		<div class="form-body" v-if="showPhotos">
 			<div v-for="photo in photos" :key="photo">
 			<base-card title="tytuł karty" 
