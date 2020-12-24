@@ -26,12 +26,12 @@ export default{
 			for (const item in answersList){
 				context.commit('addAnswer', {
 				id: answersList[item].id,
-				formId: answersList[item].formId._value,
-				formTitle: answersList[item].formTitle._value,
-				userName: answersList[item].userName._value,
-				answers: answersList[item].answers._value,
-				comments: answersList[item].comments._value,
-				responseTime: answersList[item].responseTime._value
+				formId: answersList[item].formId,
+				formTitle: answersList[item].formTitle,
+				userName: answersList[item].userName,
+				answers: answersList[item].answers,
+				comments: answersList[item].comments,
+				responseTime: answersList[item].responseTime
 				})
 			}
 		})
