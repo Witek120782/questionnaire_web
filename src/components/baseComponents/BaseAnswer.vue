@@ -2,19 +2,58 @@
 	<div class="base-answer-wrapper">
 	<div class="optionName">{{optionName}}</div>
 	<div class="optionPhoto"><img src="optionPhoto" alt=""/></div>
-	<div class="optionData"></div>	
+	<div class="optionData">
+		<answer-detail title="przyklad" :answerData="answerData1"/>
+		<answer-detail title="przyklad2" :answerData="answerData2"/>
+	</div>	
 	</div>	
 </template>
 
 <script>
+import AnswerDetail from './AnswerDetail.vue'
 export default {
 	props:[
 		'optionName',
 		'optionPhoto',
 		'optionData',
 	],
+	components:{
+		AnswerDetail
+	},
 	setup(){
+		const answerData1 = [
+			{
+				label: "-",
+				value: 5
+			},
+			{
+				label: "0",
+				value: 2
+			},
+			{
+				label: "+",
+				value: 0
+			}
+		]
+		const answerData2 = [
+			{
+				label: "-",
+				value: -1
+			},
+			{
+				label: "0",
+				value: 0
+			},
+			{
+				label: "+",
+				value: 1
+			}
+		]
 
+		return{
+			answerData1,
+			answerData2
+		}
 	}
 }
 </script>

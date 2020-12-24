@@ -20,10 +20,14 @@
 </template>
 
 <script>
+import BaseAnswer from '../../components/baseComponents/BaseAnswer.vue'
 import {computed, ref} from 'vue'
 import { useStore } from 'vuex'
 export default {
 	props:['id'],
+	components:[
+		BaseAnswer
+	],
 	setup(props){
 		const comments = ref([])
 		const respondents = ref([])
