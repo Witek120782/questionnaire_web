@@ -1,16 +1,16 @@
 <template>
 	<div class="base-answer-wrapper">
-	<div class="optionName">{{optionName}}</div>
-	<div class="optionPhoto"><img src="optionPhoto" alt=""/></div>
-	<div class="optionData">
-		<answer-detail title="przyklad" :answerData="answerData1"/>
-		<answer-detail title="przyklad2" :answerData="answerData2"/>
-	</div>	
+		<div class="optionName">{{optionName}}</div>
+		<div class="optionPhoto"><img :src="optionPhoto" alt=""/></div>
+		<div class="optionData">
+			<answer-detail :v-if="colourValue.lenght>0" title="colourValue" :answerData="colourValue"/>
+		</div>	
 	</div>	
 </template>
 
 <script>
 import AnswerDetail from './AnswerDetail.vue'
+import {ref} from 'vue'
 export default {
 	props:[
 		'optionName',
@@ -20,39 +20,26 @@ export default {
 	components:{
 		AnswerDetail
 	},
-	setup(){
-		const answerData1 = [
-			{
-				label: "-",
-				value: 5
-			},
-			{
-				label: "0",
-				value: 2
-			},
-			{
-				label: "+",
-				value: 0
-			}
-		]
-		const answerData2 = [
-			{
-				label: "-",
-				value: -1
-			},
-			{
-				label: "0",
-				value: 0
-			},
-			{
-				label: "+",
-				value: 1
-			}
-		]
+	setup(props){
 
+		const colourValue = ref([])
+		console.log(props.optionData)
+		if (props.optionData.ratingColourValue.length > 0 ){
+			colourValue.value.push({
+				label: '-',
+				value: props.optionData.ratingColourValue.filter(item=>{if(item=='bad') return item}).length
+			})
+			colourValue.value.push({
+				label: '0',
+				value: props.optionData.ratingColourValue.filter(item=>{if(item=='neutral') return item}).length
+			})
+			colourValue.value.push({
+				label: '+',
+				value: props.optionData.ratingColourValue.filter(item=>{if(item=='good') return item}).length
+			})
+		}
 		return{
-			answerData1,
-			answerData2
+			colourValue
 		}
 	}
 }
@@ -62,6 +49,9 @@ export default {
 		display:grid;
 		grid-template-columns: 1fr 2fr;
 		grid-template-rows: 1fr 4fr;
+		background-color: chartreuse;
+		max-height: 30vh;
+		margin-bottom: 10px;
 	}
 	.optionName{
 		grid-column: 1/2;
@@ -73,7 +63,11 @@ export default {
 		grid-row: 2/3;
 		background-color: brown;
 	}
-	.gridData{
+	.optionPhoto img{
+		max-width: 300px;
+		max-height: 300px;
+	}
+	.optionData{
 		grid-column: 2/3;
 		grid-row: 1/3;
 		background-color: blue;
