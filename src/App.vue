@@ -1,7 +1,7 @@
 <template>
 <div class="base-wrapper">
 		<the-header></the-header>
-		<div class="bodyApp">app vue
+		<div class="bodyApp">
 			<router-view></router-view>
 		</div>
 		<the-footer/>
@@ -23,12 +23,18 @@ export default {
 	}
 }
 </script>
-<style>
+
+<style lang="scss">
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+	@import './styles/variables.scss';
 	*{
 		margin:0;
-		padding:0;	
-	}
+		padding:0;
+		font-family: 'Roboto', sans-serif;
 	.bodyApp{
-		padding: 20px 5vw 20px 5vw;
-	}
+			min-height: 70vh;
+			padding: 20px 5vw 20px 5vw;
+			background-color: $colour02;	
+		}
+	}	
 </style>
