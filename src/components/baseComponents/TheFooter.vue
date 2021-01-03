@@ -10,10 +10,14 @@
 
 <style scoped>
 	.footer-wrapper{
-		width: 100;
-		min-height: 3vh;
+		/* position: fixed; */
+		left:0;
+		right:0;
+		bottom:0;
+		width: auto;
+		min-height: 10px;
 		margin:0;
-		padding: 20px 10% 20px 10%;
+		padding: 10px 10px 10px 10px;
 		background-image: url('../../img/backgrounds/background1.gif');
 		background-repeat: no-repeat;
 		background-size:cover;
