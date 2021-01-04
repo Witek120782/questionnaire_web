@@ -34,9 +34,10 @@ setup(){
 		.baseButton{
 			box-sizing: border-box;
 			padding: 10px;
-			border: 2px solid black;
+			// border: 2px solid black;
+			border-radius: 5px;
 			text-align: center;
-			box-shadow: 2px 2px 2px lightgray;
+			box-shadow: 2px 2px 2px 4px $colour02;
 			text-decoration: none;
 		}
 
@@ -46,6 +47,7 @@ setup(){
 		}
 		.baseButton:hover{
 			background-color: $colour02;
+			color: $colour03;
 		}
 	}
 	
