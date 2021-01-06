@@ -89,6 +89,7 @@ export default {
 				width:100;
 				padding:10px;
 				border-radius: 10px;
+				box-shadow: 2px 2px 2px $colour03;
 				color: $colour03;
 				background-color: $colour01;
 			}
@@ -98,7 +99,7 @@ export default {
 			grid-template-columns: 1fr;
 			margin-top: 50px;
 			justify-items: center;
-		
+			
 			& .add-button{
 				background-color:$colour04;
 			}
