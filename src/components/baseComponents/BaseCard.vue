@@ -7,9 +7,9 @@
 		<div class="rating">
 			<h3>Rating:</h3>
 			<div class="visual-rating">
-				<radio-rating v-if="ifRating" :name="photo.name+1" title="main Rating component"  :ratingValue="ratingMainValue" @give-back-value="getMainValue" @change="emitData" />
-				<radio-rating v-if="colourRating" :name="photo.name+2" title="colour Rating component" :ratingValue="ratingColourValue" @give-back-value="getColourValue" @change="emitData" />
-				<radio-rating v-if="designRating" :name="photo.name+3" title="design Rating component" :ratingValue="ratingDesignValue" @give-back-value="getDesignValue" @change="emitData" />
+				<radio-rating v-if="ifRating" :name="photo.name+1" title="Rating"  :ratingValue="ratingMainValue" @give-back-value="getMainValue" @change="emitData" />
+				<radio-rating v-if="colourRating" :name="photo.name+2" title="Colour rating:" :ratingValue="ratingColourValue" @give-back-value="getColourValue" @change="emitData" />
+				<radio-rating v-if="designRating" :name="photo.name+3" title="Design rating:" :ratingValue="ratingDesignValue" @give-back-value="getDesignValue" @change="emitData" />
 			</div>
 			<div class="size-to-choose" v-if="sizes && sizes.length>0">
 				<label for="sizeRange">Choose a size range:</label>
