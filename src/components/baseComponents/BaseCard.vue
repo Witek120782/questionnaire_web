@@ -100,15 +100,16 @@ export default {
 .base-card-wrapper{
 	/* min-width: 15vw; */
 	position: relative;
-	height: 60vh;
+	min-height: 60vh;
 	margin:0;
 	padding: 5px;
 	display: grid;
-	box-sizing: border-box;
-	border: 2px solid black;
-	border-radius: 10px;
-	grid-template-rows: 1fr 6fr 4fr;
+	grid-template-rows: auto auto auto;
 	row-gap: 5px;
+	box-sizing: border-box;
+	border: 2px solid darken($colour02, 14);
+	border-radius: 10px;
+	background-color: darken($colour02, 9);
 
 	.title{
 		align-self: center;
@@ -119,13 +120,11 @@ export default {
 	.photo{
 		align-self: center;
 		justify-self: center;
-		border-bottom: 1px solid black;
-		border-top: 1px solid black;
-		background-color: honeydew;
-	
+		height: 30;
 		img{
 			max-width: 20vw;
 			max-height: 200px;
+			border-radius: 10px;
 		}	
 	}
 
