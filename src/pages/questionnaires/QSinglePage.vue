@@ -188,6 +188,8 @@ return{
 			}
 			input{
 				padding: 5px 10px;
+				border-radius: 10px;
+				background-color: lighten($colour02, 20);
 			}
 		}
 
@@ -213,6 +215,7 @@ return{
 				padding: 5px 10px;
 				width: 50vw;
 				border-radius: 10px;
+				background-color: lighten($colour02, 20);
 			}
 		}
 		button{
