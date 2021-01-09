@@ -31,15 +31,15 @@ export default {
 					answersDetails.value.push(
 					{name: item,
 						data: [{
-							label: '-',
+							label: String.fromCodePoint(0x1F44D),
 							value: props.optionData[item].filter(item=>{if(item=='bad') return item}).length
 						},
 						{
-							label: '0',
+							label: String.fromCodePoint(0x1F610),
 							value: props.optionData[item].filter(item=>{if(item=='neutral') return item}).length
 						},
 						{
-							label: '+',
+							label: String.fromCodePoint(0x1F44D),
 							value: props.optionData[item].filter(item=>{if(item=='good') return item}).length
 						}]
 					})
@@ -88,7 +88,6 @@ export default {
 		.optionData{
 			grid-column: 2/3;
 			grid-row: 2/3;
-			background-color: blue;
 		}
 	}
 </style>
