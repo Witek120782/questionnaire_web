@@ -1,22 +1,24 @@
 <template>
-	<form @submit.prevent="sumbitForm">
-		<base-dialog v-if="isLoading" :ifFlashing="baseDialogFlash" message="loading..." @hide-show="toggleDialog"></base-dialog>
-		<div class="form-control">
-			<label for="email">Email:</label>
-			<input type="email" id="email" placeholder="your@email.adress" v-model="email"/>
+	<div class="auth-wrapper">
+		<base-dialog v-if="isLoading" :ifFlashing="true" message="authorisation..." @hide-show="toggleDialog"/>
+		<form @submit.prevent="sumbitForm">
+			<div class="form-control">
+				<label for="email">Email:</label>
+				<input type="email" id="email" placeholder="your@email.adress" v-model="email"/>
+			</div>
+			<div class="form-cotrol">
+				<label for="passord">Password:</label>
+				<input type="password" id="password" placeholder="password at least 6 characters" v-model="password"/>
+			</div>
+			<p v-if="!formIsValid">Please inser valid email adress and password.</p>
+			<button class="button">{{sumbitButtonText}}</button>
+			<div class="button" @click="swichMode">{{ switchModeTextButton }}</div>
+		</form>
+		<div>
+			<p>user info:</p>
+			<p>id: {{ userId }}</p>
+			<p>token: {{ userToken }}</p>
 		</div>
-		<div class="form-cotrol">
-			<label for="passord">Password:</label>
-			<input type="password" id="password" placeholder="password at least 6 characters" v-model="password"/>
-		</div>
-		<p v-if="!formIsValid">Please inser valid email adress and password.</p>
-		<button>{{sumbitButtonText}}</button>
-		<button @click="swichMode">{{ switchModeTextButton }}</button>
-	</form>
-	<div>
-		<p>user info:</p>
-		<p>id: {{ userId }}</p>
-		<p>token: {{ userToken }}</p>
 	</div>
 </template>
 
@@ -25,14 +27,13 @@ import {ref, computed} from 'vue';
 import { useStore } from 'vuex';
 export default {
 	setup(){
+		const authorisation = ref(false);
 		const email = ref('');
 		const password = ref('');
 		const formIsValid = ref(true);
 		const mode = ref('login');
-		const isLoading = ref(false);
 		const error = ref('');
 		const store = useStore();
-		const baseDialogFlash= true;
 
 	const switchModeTextButton = computed(()=>{
 		if (mode.value === 'login'){
@@ -59,6 +60,13 @@ const sumbitButtonText = computed(()=>{
 		}
 })
 
+const isLoading = computed(()=>{
+	if (authorisation.value && !store.getters['auth/userId']) {
+		return true
+	} else {
+		authorisation.value = false
+		return false}
+})
 	function swichMode(){
 		if (mode.value === 'login'){
 			mode.value ="signUp"
@@ -68,7 +76,7 @@ const sumbitButtonText = computed(()=>{
 	}
 
 	function toggleDialog(){
-		isLoading.value=false
+		authorisation.value=false
 	}
 
 	async function sumbitForm(){
@@ -76,7 +84,7 @@ const sumbitButtonText = computed(()=>{
 		if (email.value=='' || !email.value.includes('@') || password.value.length<6){
 			formIsValid.value=false;
 		}
-		isLoading.value=true
+		authorisation.value=true
 		try{
 			if(mode.value==="login"){
 							store.dispatch('auth/login',{
@@ -89,16 +97,16 @@ const sumbitButtonText = computed(()=>{
 					password: password.value
 				})
 			}
+			// add something like this to redirect this.$router.replace('./coaches');
 		} catch(err){
 			error.value = err.message || 'signup not completed :-/';
+			authorisation.value=false
 		}
 		email.value = null
 		password.value = null
-		isLoading.value=false
 	}
 
 		return{
-			baseDialogFlash,
 			email,
 			password,
 			formIsValid,
@@ -117,6 +125,42 @@ const sumbitButtonText = computed(()=>{
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../styles/variables.scss';
+.auth-wrapper{
+	width: 100;
+	text-align: center;
+	form {
+		div{
+			margin-bottom: 20px;
+			label{
+				margin-right: 10px;
+			}
+			input{
+				padding: 5px 5px;
+				border: 2px solid $colour03;
+				border-radius: 5px;
+				color: $colour03;
+			}			
+		}
+		& .button{
+			display: inline-block;
+			margin-right: 10px;
+			padding: 7px 7px;
+			border: 2px solid $colour03;
+			border-radius: 5px;
+			cursor: pointer;
+				font-size: 16px;
+		}
+		button{
+			background-color: $colour01;
+		}
+		button:hover{
+			background-color: $colour03;
+			color: $colour02;
+			border-radius: 7px;
+		}
+	}
+}
 
 </style>

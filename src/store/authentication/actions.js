@@ -30,7 +30,7 @@ export default{
 			.then(auth=>{
 				response = auth.user.toJSON();
 				auth.user.getIdToken().then(token=>{
-					userToken = token;
+				userToken = token;
 				});
 			}).catch(error => {
     console.log(error.message)
