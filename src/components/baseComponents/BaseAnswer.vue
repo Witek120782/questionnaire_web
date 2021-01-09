@@ -31,7 +31,7 @@ export default {
 					answersDetails.value.push(
 					{name: item,
 						data: [{
-							label: String.fromCodePoint(0x1F44D),
+							label: String.fromCodePoint(0x1F44E),
 							value: props.optionData[item].filter(item=>{if(item=='bad') return item}).length
 						},
 						{

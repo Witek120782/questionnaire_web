@@ -3,15 +3,15 @@
 				<div class="title">{{ title }}</div>
 				<div class="radio-section bad">				
 					<input type="radio" id="bad" :name="name" value="bad" v-model="valueRating" @change="sendValue">
-					<label :for="name">bad</label>
+					<label :for="name">{{String.fromCodePoint(0x1F44E)}}</label>
 				</div>
 				<div class="radio-section">
 					<input type="radio" id="neutral" :name="name" value="neutral" v-model="valueRating" @change="sendValue">
-					<label :for="name">neutral</label>
+					<label :for="name">{{String.fromCodePoint(0x1F610)}}</label>
 				</div>
 				<div class="radio-section good">
 					<input type="radio" id="good" :name="name" value="good" v-model="valueRating" @change="sendValue">
-					<label :for="name">good</label>
+					<label :for="name">{{String.fromCodePoint(0x1F44D)}}</label>
 				</div>
 			</div>
 </template>
@@ -57,11 +57,12 @@ export default {
 		margin-bottom:7px;
 		input{
 			cursor: pointer;
+			width:10px;
 		}
 		label{
 			box-sizing: border-box;
 			padding: 0px 3px 0px 3px;
-			font-size:14px;
+			font-size:20px;
 		}
 	}
 	.bad{
