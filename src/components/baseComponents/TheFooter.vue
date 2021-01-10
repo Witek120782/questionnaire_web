@@ -8,16 +8,22 @@
 <script>
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 	.footer-wrapper{
-		width: 100;
-		min-height: 3vh;
+		left:0;
+		right:0;
+		bottom:0;
+		width: auto;
+		min-height: 10px;
 		margin:0;
-		padding: 20px 10% 20px 10%;
-		background-image: url('../../img/backgrounds/background1.gif');
+		padding: 10px 10px 10px 10px;
+		background-image: url('../../img/backgrounds/header_background.png');
 		background-repeat: no-repeat;
-		background-size:cover;
+		background-size: 100% 100%;
 		color: white;
 		text-align: center;
+		h3, div{
+			background-color: transparent;
+		}
 	}
 </style>

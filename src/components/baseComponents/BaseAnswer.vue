@@ -31,15 +31,15 @@ export default {
 					answersDetails.value.push(
 					{name: item,
 						data: [{
-							label: '-',
+							label: String.fromCodePoint(0x1F44E),
 							value: props.optionData[item].filter(item=>{if(item=='bad') return item}).length
 						},
 						{
-							label: '0',
+							label: String.fromCodePoint(0x1F610),
 							value: props.optionData[item].filter(item=>{if(item=='neutral') return item}).length
 						},
 						{
-							label: '+',
+							label: String.fromCodePoint(0x1F44D),
 							value: props.optionData[item].filter(item=>{if(item=='good') return item}).length
 						}]
 					})
@@ -53,32 +53,41 @@ export default {
 	}
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
+@import '../../styles/variables.scss';
 	.base-answer-wrapper{
 		display:grid;
-		grid-template-columns: 1fr 2fr;
-		grid-template-rows: 1fr 4fr;
-		background-color: chartreuse;
-		max-height: 30vh;
+		grid-template-columns: auto auto;
+		grid-template-rows: auto auto;
+		// max-height: 30vh;
 		margin-bottom: 10px;
-	}
-	.optionName{
-		grid-column: 1/2;
-		grid-row: 1/2;
-		background-color: cornflowerblue;
-	}
-	.optionPhoto{
-		grid-column: 1/2;
-		grid-row: 2/3;
-		background-color: brown;
-	}
-	.optionPhoto img{
-		max-width: 300px;
-		max-height: 300px;
-	}
-	.optionData{
-		grid-column: 2/3;
-		grid-row: 1/3;
-		background-color: blue;
+		background-color: darken($colour02, 12);
+		padding:10px;
+		border-radius: 10px;
+		box-shadow: 4px 4px 4px darken($colour02, 25);
+
+		.optionName{
+			grid-column: 1/3;
+			grid-row: 1/2;
+			text-align: center;
+			padding:5px;
+		}
+	
+		.optionPhoto{
+			grid-column: 1/2;
+			grid-row: 2/3;
+
+			img{
+				max-width: 10vw;
+				max-height: 10vw;
+				padding:5px;
+				border-radius: 10px;
+			}	
+		}
+
+		.optionData{
+			grid-column: 2/3;
+			grid-row: 2/3;
+		}
 	}
 </style>

@@ -1,25 +1,25 @@
 <template>
-	<base-dialog v-if="isLoading" :ifFlashing="true" message="authorisation..." @hide-show="toggleDialog"/>
-	<form @submit.prevent="sumbitForm">
-		
-		<div class="form-control">
-			<label for="email">Email:</label>
-			<input type="email" id="email" placeholder="your@email.adress" v-model="email"/>
+	<div class="auth-wrapper">
+		<base-dialog v-if="isLoading" :ifFlashing="true" message="authorisation..." @hide-show="toggleDialog"/>
+		<form @submit.prevent="sumbitForm">
+			<div class="form-control">
+				<label for="email">Email:</label>
+				<input type="email" id="email" placeholder="your@email.adress" v-model="email"/>
+			</div>
+			<div class="form-cotrol">
+				<label for="passord">Password:</label>
+				<input type="password" id="password" placeholder="password at least 6 characters" v-model="password"/>
+			</div>
+			<p v-if="!formIsValid">Please inser valid email adress and password.</p>
+			<button class="button">{{sumbitButtonText}}</button>
+			<div class="button" @click="swichMode">{{ switchModeTextButton }}</div>
+		</form>
+		<div>
+			<p>user info:</p>
+			<p>id: {{ userId }}</p>
+			<p>token: {{ userToken }}</p>
 		</div>
-		<div class="form-cotrol">
-			<label for="passord">Password:</label>
-			<input type="password" id="password" placeholder="password at least 6 characters" v-model="password"/>
-		</div>
-		<p v-if="!formIsValid">Please inser valid email adress and password.</p>
-		<button>{{sumbitButtonText}}</button>
-		<button @click="swichMode">{{ switchModeTextButton }}</button>
-	</form>
-	<div>
-		<p>user info:</p>
-		<p>id: {{ userId }}</p>
-		<p>token: {{ userToken }}</p>
 	</div>
-
 </template>
 
 <script>
@@ -97,6 +97,7 @@ const isLoading = computed(()=>{
 					password: password.value
 				})
 			}
+			// add something like this to redirect this.$router.replace('./coaches');
 		} catch(err){
 			error.value = err.message || 'signup not completed :-/';
 			authorisation.value=false
@@ -124,6 +125,42 @@ const isLoading = computed(()=>{
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../styles/variables.scss';
+.auth-wrapper{
+	width: 100;
+	text-align: center;
+	form {
+		div{
+			margin-bottom: 20px;
+			label{
+				margin-right: 10px;
+			}
+			input{
+				padding: 5px 5px;
+				border: 2px solid $colour03;
+				border-radius: 5px;
+				color: $colour03;
+			}			
+		}
+		& .button{
+			display: inline-block;
+			margin-right: 10px;
+			padding: 7px 7px;
+			border: 2px solid $colour03;
+			border-radius: 5px;
+			cursor: pointer;
+				font-size: 16px;
+		}
+		button{
+			background-color: $colour01;
+		}
+		button:hover{
+			background-color: $colour03;
+			color: $colour02;
+			border-radius: 7px;
+		}
+	}
+}
 
 </style>

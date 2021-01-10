@@ -1,11 +1,11 @@
 <template>
-<div class="wrapper">
-	<h1>Title of the WebPage</h1>
-	<base-button toLink="/home" mode="link">Home Page</base-button>
-	<base-button v-if="ifLogged" toLink="/questionnaire" mode="link">Questionnaires</base-button>
-	<base-button v-if="!ifLogged" toLink="/auth" mode="link">Login</base-button>
-	<base-button v-else @click="logout" toLink="/home" mode="link">Logout</base-button>
-</div>
+	<div class="header-wrapper">
+		<h1>Title of the WebPage</h1>
+		<base-button class="header-button" toLink="/home" mode="link">Home Page</base-button>
+		<base-button class="header-button" v-if="ifLogged" toLink="/questionnaire" mode="link">Questionnaires</base-button>
+		<base-button class="header-button" v-if="!ifLogged" toLink="/auth" mode="link">Login</base-button>
+		<base-button class="header-button" v-else @click="logout" toLink="/home" mode="link">Logout</base-button>
+	</div>
 </template>
 
 <script>
@@ -31,16 +31,21 @@ export default {
 }
 </script>
 
-<style scoped>
-	.wrapper{
+<style lang="scss" scoped>
+@import '../../styles/variables.scss';
+	.header-wrapper{
 		width: 100;
 		min-height: 10vh;
 		margin:0;
 		padding: 20px 10% 20px 10%;
-		background-image: url('../../img/backgrounds/background1.gif');
+		background-image: url('../../img/backgrounds/header_background.png');
 		background-repeat: no-repeat;
-		background-size:cover;
-		color: white;
+		background-size: 100% 100%;
+		background-color: $colour02;	
+		color: $colour02;
 		text-align: center;
+		h1 {
+			background-color: transparent;
+		}
 	}
 </style>

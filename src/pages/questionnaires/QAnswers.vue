@@ -4,7 +4,8 @@
 			<h1>Answers for questionnaire: "{{form.title}}"</h1>
 		</div>
 		<div class="answers-data">
-			<div class="respondents" >Respondents
+			<div class="respondents" >
+				<h3>Respondents:</h3>
 				<div v-for="user in respondents" :key="user">{{user}}</div>
 			</div>
 			<div class="answers">
@@ -12,12 +13,15 @@
 					<base-answer :optionName="answer.name" :optionPhoto="answer.url" :optionData="answer.data" />
 				</div>
 			</div>
-			<div class="comments">comments
+			<div class="comments">
+				<h3>Comments:</h3>	
 				<div v-for="comment in comments" :key="comment.userName">
 					<p>{{comment.userName}}: </p><p>{{comment.comments}}</p>
 				</div>
 			</div>
-			<div class="summary">summary</div>
+			<div class="summary">
+				<h3>Summary:</h3>
+			</div>
 		</div>
 		<button @click="showAnswers">show answers</button>
 	</div>
@@ -134,37 +138,82 @@ export default {
 }
 </script>
 
-<style scoped>
-	.answers-data{
-		display: grid;
-		grid-template-columns: 1fr 9fr;
-		grid-template-rows:auto auto auto;
-		grid-gap: 10px 10px;
+<style lang="scss" scoped>
+@import '../../styles/variables.scss';
+	.answers-wrapper{
+		.questionnaire-info{
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.answers-data{
+			display: grid;
+			grid-template-columns: 1fr 9fr;
+			grid-template-rows:auto auto auto;
+			grid-gap: 10px 10px;
+			margin-bottom: 10px;
+
+			.respondents{
+				grid-column: 1 / 2;
+				grid-row: 1 / 4;
+				background-color: darken($colour02, 12);
+				padding:10px;
+				border-radius: 10px;
+				box-shadow: 4px 4px 4px darken($colour02, 25);
+				h3{
+					text-align: center;
+					margin-bottom: 5px;
+				}
+				div{
+					padding-left: 5px;
+				}
+			}
+			.answers{
+				grid-column:2/3;
+				grid-row: 1/2;
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr 1fr;
+				grid-column-gap: 5px;
+				grid-row-gap: 5px;
+			}
+			.comments{
+				grid-column:2/3;
+				grid-row:2/3;
+				background-color: darken($colour02, 12);
+				padding:10px;
+				border-radius: 10px;
+				box-shadow: 4px 4px 4px darken($colour02, 25);
+				h3{
+					text-align: center;
+					margin-bottom: 5px;
+				}
+				div{
+					margin-bottom: 10px;
+					p{
+						display: inline-block;
+						margin-left: 5px;
+					}
+				}
+			}
+
+			.summary{
+				grid-column:2/3;
+				grid-row:3/4;
+				background-color: darken($colour02, 12);
+				padding:10px;
+				border-radius: 10px;
+				box-shadow: 4px 4px 4px darken($colour02, 25);
+				h3{
+					text-align: center;
+					margin-bottom: 5px;
+				}
+			}	
+		}
 	}
-	.respondents{
-		grid-column: 1 / 2;
-		grid-row: 1 / 4;
-	}
-	.answers{
-		grid-column:2/3;
-		grid-row: 1/2;
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr;
-		grid-column-gap: 5px;
-		grid-row-gap: 5px;
-	}
-	.comments{
-		grid-column:2/3;
-		grid-row:2/3;
-		background-color: blueviolet;
-	}
-	.comments p{
-		display: inline-block;
-	}
-	.summary{
-		grid-column:2/3;
-		grid-row:3/4;
-		background-color: chartreuse;
-	}
+	
+	
+	
+	
+	
 
 </style>
