@@ -31,10 +31,16 @@ export default {
 		margin:0;
 		padding:0;
 		font-family: 'Roboto', sans-serif;
-	.bodyApp{
+	.base-wrapper{
+		background-image: url('./img/backgrounds/background_dragon.png');
+		background-repeat: repeat;
+
+		.bodyApp{
 			min-height: 70vh;
 			padding: 20px 5vw 20px 5vw;
-			background-color: $colour02;	
+			// background-color: $colour02;	
 		}
+	}
+	
 	}	
 </style>

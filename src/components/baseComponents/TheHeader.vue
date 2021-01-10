@@ -38,11 +38,10 @@ export default {
 		min-height: 10vh;
 		margin:0;
 		padding: 20px 10% 20px 10%;
-		background-image: url('../../img/backgrounds/header_background.png');
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
-		background-color: $colour02;	
-		color: $colour02;
+		box-shadow: 0 0 1rem 0 rgba(0,0,0,.2);
+		background-color: rgba(64,24,1,.35);
+		backdrop-filter: blur(5px);
+
 		text-align: center;
 		h1 {
 			background-color: transparent;

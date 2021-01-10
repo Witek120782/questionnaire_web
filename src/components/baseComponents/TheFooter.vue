@@ -17,9 +17,9 @@
 		min-height: 10px;
 		margin:0;
 		padding: 10px 10px 10px 10px;
-		background-image: url('../../img/backgrounds/header_background.png');
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
+		box-shadow: 0 0 1rem 0 rgba(0,0,0,.2);
+		background-color: rgba(64,24,1,.35);
+		backdrop-filter: blur(5px);
 		color: white;
 		text-align: center;
 		h3, div{
