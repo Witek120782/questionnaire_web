@@ -35,76 +35,84 @@ export default {
 		const error = ref('');
 		const store = useStore();
 
-	const switchModeTextButton = computed(()=>{
-		if (mode.value === 'login'){
-			return 'swich to Sign up';
-		}
-		else return 'swich to Login'
-	})
-
-
-// do usuniecia po testach
-	const userId = computed(()=>{
-		return store.getters['auth/userId']
-	})
-// do usuniecia po testach
-	const userToken = computed(()=>{
-		return store.getters['auth/token']
-	})
-
-const sumbitButtonText = computed(()=>{
-	if (mode.value === 'login'){
-			return "LOGIN";
-		} else if (mode.value=== 'signUp'){
-			return "SIGN UP";
-		}
-})
-
-const isLoading = computed(()=>{
-	if (authorisation.value && !store.getters['auth/userId']) {
-		return true
-	} else {
-		authorisation.value = false
-		return false}
-})
-	function swichMode(){
-		if (mode.value === 'login'){
-			mode.value ="signUp"
-		} else if (mode.value=== 'signUp'){
-			mode.value = "login"
-		}
-	}
-
-	function toggleDialog(){
-		authorisation.value=false
-	}
-
-	async function sumbitForm(){
-		formIsValid.value = true;
-		if (email.value=='' || !email.value.includes('@') || password.value.length<6){
-			formIsValid.value=false;
-		}
-		authorisation.value=true
-		try{
-			if(mode.value==="login"){
-							store.dispatch('auth/login',{
-					email: email.value,
-					password: password.value
-				})		
-			}else if (mode.value==="signUp"){
-				store.dispatch('auth/signup',{
-					email:email.value,
-					password: password.value
-				})
+		const switchModeTextButton = computed(()=>{
+			if (mode.value === 'login'){
+				return 'swich to Sign up';
 			}
-			// add something like this to redirect this.$router.replace('./coaches');
-		} catch(err){
-			error.value = err.message || 'signup not completed :-/';
+			else return 'swich to Login'
+		})
+
+
+		// do usuniecia po testach
+		const userId = computed(()=>{
+			return store.getters['auth/userId']
+		})
+		// do usuniecia po testach
+		const userToken = computed(()=>{
+			return store.getters['auth/token']
+		})
+
+		const sumbitButtonText = computed(()=>{
+			if (mode.value === 'login'){
+					return "LOGIN";
+				} else if (mode.value=== 'signUp'){
+					return "SIGN UP";
+				}
+		})
+
+		const isLoading = computed(()=>{
+			if (authorisation.value && !store.getters['auth/userId']) {
+				return true
+			} else {
+				authorisation.value = false
+				return false}
+		})
+		function swichMode(){
+			if (mode.value === 'login'){
+				mode.value ="signUp"
+			} else if (mode.value=== 'signUp'){
+				mode.value = "login"
+			}
+		}
+
+		function toggleDialog(){
 			authorisation.value=false
 		}
-		email.value = null
-		password.value = null
-	}
+
+		function login(email, password){
+			store.dispatch('auth/login',{
+				email,
+				password
+			})
+		}
+
+		function signup(email, password){
+			store.dispatch('auth/signup',{
+				email,
+				password
+			})
+		}
+
+		async function sumbitForm(){
+			formIsValid.value = true;
+			if (email.value=='' || !email.value.includes('@') || password.value.length<6){
+				formIsValid.value=false;
+			}
+			authorisation.value=true
+			try{
+				if(mode.value==="login"){
+					login (email.value, password.value)				
+				}else if (mode.value==="signUp"){
+					signup(email.value, password.value)
+				}
+				// add something like this to redirect this.$router.replace('./coaches');
+			} catch(err){
+				error.value = err.message || 'signup not completed :-/';
+				authorisation.value=false
+			}
+			email.value = null
+			password.value = null
+		}
 
 		return{
 			email,
