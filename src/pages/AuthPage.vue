@@ -157,11 +157,15 @@ export default {
 			padding: 7px 7px;
 			border: 2px solid $colour03;
 			border-radius: 5px;
+			backdrop-filter: blur(5px);
 			cursor: pointer;
 				font-size: 16px;
 		}
 		button{
-			background-color: $colour01;
+			border-radius: 10px;
+			box-shadow: 3px 3px 3px  rgba(64,24,1,1);
+			background-color: rgba(64,24,1,.35);
+			backdrop-filter: blur(5px);
 		}
 		button:hover{
 			background-color: $colour03;
