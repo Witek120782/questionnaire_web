@@ -66,7 +66,6 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/variables.scss';
 	.list-wrapper{
-		background-color: $colour02;
 		width:100;
 		height: 100;
 
@@ -89,9 +88,14 @@ export default {
 				width:100;
 				padding:10px;
 				border-radius: 10px;
-				box-shadow: 2px 2px 2px $colour03;
+				box-shadow: 3px 5px 3px $colour03;
 				color: $colour03;
-				background-color: $colour01;
+				// background-color: $colour01;
+				border: 2px solid darken($colour02, 15);
+				border-radius: 10px;
+				background-color: rgba(217,192,162,.15);
+				backdrop-filter: blur(5.5px);
+				text-shadow: 2.5px .5px 1.5px $colour06;
 			}
 		}
 		.button-add{
