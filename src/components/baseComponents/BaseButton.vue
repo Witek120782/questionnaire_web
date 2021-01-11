@@ -37,7 +37,7 @@ setup(){
 			// border: 2px solid black;
 			border-radius: 5px;
 			text-align: center;
-			box-shadow: 2px 2px 2px 4px $colour02;
+			// box-shadow: 2px 2px 2px 3px $colour02;
 			text-decoration: none;
 		}
 
