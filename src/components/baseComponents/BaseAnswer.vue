@@ -13,6 +13,7 @@
 <script>
 import AnswerDetail from './AnswerDetail.vue'
 import {ref} from 'vue'
+import emotes from "../../styles/emotes.js"
 export default {
 	props:[
 		'optionName',
@@ -23,6 +24,8 @@ export default {
 		AnswerDetail
 	},
 	setup(props){
+		console.log('emotes')
+		console.log(emotes["trumbUp"])
 
 		const answersDetails = ref([])
 		for(let item in props.optionData){
@@ -31,15 +34,15 @@ export default {
 					answersDetails.value.push(
 					{name: item,
 						data: [{
-							label: String.fromCodePoint(0x1F44E),
+							label: emotes["trumbDown"],
 							value: props.optionData[item].filter(item=>{if(item=='bad') return item}).length
 						},
 						{
-							label: String.fromCodePoint(0x1F610),
+							label: emotes["emojiNeutral"],
 							value: props.optionData[item].filter(item=>{if(item=='neutral') return item}).length
 						},
 						{
-							label: String.fromCodePoint(0x1F44D),
+							label: emotes["trumbUp"],
 							value: props.optionData[item].filter(item=>{if(item=='good') return item}).length
 						}]
 					})

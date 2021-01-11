@@ -3,21 +3,22 @@
 				<div class="title">{{ title }}</div>
 				<div class="radio-section bad">				
 					<input type="radio" id="bad" :name="name" value="bad" v-model="valueRating" @change="sendValue">
-					<label :for="name">{{String.fromCodePoint(0x1F44E)}}</label>
+					<label :for="name">{{emojis["trumbDown"]}}</label>
 				</div>
 				<div class="radio-section">
 					<input type="radio" id="neutral" :name="name" value="neutral" v-model="valueRating" @change="sendValue">
-					<label :for="name">{{String.fromCodePoint(0x1F610)}}</label>
+					<label :for="name">{{emojis["emojiNeutral"]}}</label>
 				</div>
 				<div class="radio-section good">
 					<input type="radio" id="good" :name="name" value="good" v-model="valueRating" @change="sendValue">
-					<label :for="name">{{String.fromCodePoint(0x1F44D)}}</label>
+					<label :for="name">{{emojis["trumbUp"]}}</label>
 				</div>
 			</div>
 </template>
 
 <script>
 import { ref } from 'vue';
+import emotes from "../../styles/emotes.js"
 export default {
 	props:[
 		'name',
@@ -26,13 +27,16 @@ export default {
 	],
 	emits:['give-back-value'],
 	setup(props, context){
+		const emojis = emotes;
 		const valueRating = ref()
-	function sendValue (){
+		function sendValue (){
 			context.emit('give-back-value', valueRating.value)
-		}		
+		}
+				
 		return {
+			emojis,
 			valueRating,
-			sendValue
+			sendValue,
 		}
 	}
 }
