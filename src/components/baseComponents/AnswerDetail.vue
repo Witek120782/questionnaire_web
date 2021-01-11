@@ -31,7 +31,9 @@ export default {
 		padding: 3px;
 		margin-top: 5px;
 		width: 10vw;
-		background-color: darken($colour02, 20);
+		background-color: rgba(239,170,130,.5);
+		box-shadow: 1px 1.5px 1px $colour06;
+		backdrop-filter: blur(5px);
 		border-radius: 5px;
 		text-align: center;
 	
