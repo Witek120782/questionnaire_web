@@ -24,9 +24,7 @@ export default {
 		AnswerDetail
 	},
 	setup(props){
-		console.log('emotes')
-		console.log(emotes["trumbUp"])
-
+		
 		const answersDetails = ref([])
 		for(let item in props.optionData){
 			if (props.optionData[item].length > 0 ){
@@ -64,10 +62,12 @@ export default {
 		grid-template-rows: auto auto;
 		// max-height: 30vh;
 		margin-bottom: 10px;
-		background-color: darken($colour02, 12);
+		border: 2px solid darken($colour02, 15);
+		background-color: rgba(217,192,162,.25);
+		backdrop-filter: blur(5.5px);
 		padding:10px;
 		border-radius: 10px;
-		box-shadow: 4px 4px 4px darken($colour02, 25);
+		// box-shadow: 4px 4px 4px darken($colour02, 25);
 
 		.optionName{
 			grid-column: 1/3;

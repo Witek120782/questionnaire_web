@@ -156,10 +156,13 @@ export default {
 			.respondents{
 				grid-column: 1 / 2;
 				grid-row: 1 / 4;
-				background-color: darken($colour02, 12);
+				border: 2px solid darken($colour02, 15);
+		background-color: rgba(217,192,162,.25);
+		backdrop-filter: blur(5.5px);
+				// background-color: darken($colour02, 12);
 				padding:10px;
 				border-radius: 10px;
-				box-shadow: 4px 4px 4px darken($colour02, 25);
+				// box-shadow: 4px 4px 4px darken($colour02, 25);
 				h3{
 					text-align: center;
 					margin-bottom: 5px;
@@ -179,10 +182,13 @@ export default {
 			.comments{
 				grid-column:2/3;
 				grid-row:2/3;
-				background-color: darken($colour02, 12);
+				border: 2px solid darken($colour02, 15);
+		background-color: rgba(217,192,162,.25);
+		backdrop-filter: blur(5.5px);
+				// background-color: darken($colour02, 12);
 				padding:10px;
 				border-radius: 10px;
-				box-shadow: 4px 4px 4px darken($colour02, 25);
+				// box-shadow: 4px 4px 4px darken($colour02, 25);
 				h3{
 					text-align: center;
 					margin-bottom: 5px;
@@ -199,10 +205,13 @@ export default {
 			.summary{
 				grid-column:2/3;
 				grid-row:3/4;
-				background-color: darken($colour02, 12);
+				border: 2px solid darken($colour02, 15);
+		background-color: rgba(217,192,162,.25);
+		backdrop-filter: blur(5.5px);
+				// background-color: darken($colour02, 12);
 				padding:10px;
 				border-radius: 10px;
-				box-shadow: 4px 4px 4px darken($colour02, 25);
+				// box-shadow: 4px 4px 4px darken($colour02, 25);
 				h3{
 					text-align: center;
 					margin-bottom: 5px;

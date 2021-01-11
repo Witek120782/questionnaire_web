@@ -107,9 +107,10 @@ export default {
 	grid-template-rows: auto auto auto;
 	row-gap: 5px;
 	box-sizing: border-box;
-	border: 2px solid darken($colour02, 14);
+	border: 2px solid darken($colour02, 15);
 	border-radius: 10px;
-	background-color: darken($colour02, 9);
+	background-color: rgba(217,192,162,.25);
+	backdrop-filter: blur(5.5px);
 
 	.title{
 		align-self: center;
