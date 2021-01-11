@@ -10,11 +10,12 @@
 
 <style lang="scss" scoped>
 	.footer-wrapper{
+		position: relative;
 		left:0;
 		right:0;
 		bottom:0;
 		width: auto;
-		min-height: 10px;
+		min-height: 3vh;
 		margin:0;
 		padding: 10px 10px 10px 10px;
 		box-shadow: 0 0 1rem 0 rgba(0,0,0,.2);

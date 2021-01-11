@@ -105,7 +105,10 @@ export default {
 			justify-items: center;
 			
 			& .add-button{
-				background-color:$colour04;
+				border-radius: 10px;
+				box-shadow: 3px 3px 3px  rgba(64,24,1,1);
+				background-color: rgba(64,24,1,.35);
+				backdrop-filter: blur(5px);
 			}
 		}
 	}

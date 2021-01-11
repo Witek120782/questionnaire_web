@@ -32,11 +32,12 @@ export default {
 		padding:0;
 		font-family: 'Roboto', sans-serif;
 	.base-wrapper{
+		min-height: 100vh;
 		background-image: url('./img/backgrounds/background_dragon.png');
 		background-repeat: repeat;
 
 		.bodyApp{
-			min-height: 70vh;
+			min-height: 75vh;
 			padding: 20px 5vw 20px 5vw;
 			// background-color: $colour02;	
 		}

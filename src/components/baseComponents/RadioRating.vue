@@ -57,7 +57,7 @@ export default {
 	.radio-section{
 		border: 1px solid $colour03;
 		border-radius: 5px;
-		padding: 3px;
+		padding: 2px 2px 3px 2px;
 		margin-bottom:7px;
 		input{
 			cursor: pointer;
@@ -68,6 +68,11 @@ export default {
 			padding: 0px 3px 0px 3px;
 			font-size:20px;
 		}
+		input[type=radio]:checked + label {
+				padding: 1px 1px 2px 1px;
+				border-radius: 3px;
+				background-color:gold;
+}
 	}
 	.bad{
 			background-color: red;
