@@ -134,6 +134,7 @@
 			return{
 				comments,
 				allAnswersFromStore,
+				answersToShow,
 				form,
 				photos,
 				respondents,
