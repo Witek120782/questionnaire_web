@@ -55,15 +55,12 @@
 			const userName = ref('');
 			const validationUserName = ref(false);
 
-
-
 			const photos = ref(store.getters['photos/getAllPhotos'].filter(item =>{
 				if (item.formId == props.id) return item})[0].pictures)
 			
 			setTimeout(()=>{
 				showPhotos.value=true
 			},2000)
-
 			
 			const form = computed(()=>{
 				return [...store.getters['forms/getAllForms']].filter(item =>{
@@ -73,7 +70,7 @@
 			})
 
 			const ifRating = computed(()=>{
-				if (form.value.reqRating == 'rating') return true;
+				if (form.value.reqRating === 'rating') return true;
 				else return false;
 			})
 
@@ -108,7 +105,8 @@
 			function setAnswers(data){
 				let index = answers.value.findIndex((item)=>{
 					if(item.optionName === data.optionName) return true
-				}) 
+				})
+ 
 				if (index == -1){
 					answers.value.push({
 						optionName: data.optionName,

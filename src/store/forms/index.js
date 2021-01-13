@@ -6,17 +6,7 @@ export default{
 	namespaced: true,
 	state(){
 		return{
-			forms:[{
-				id:'000',
-				title:'tytul12',
-				pictures:'',
-				reqRating: false,
-				reqRatingColour: false,
-				reqRagingDesign: false,
-				qtyInPolybag: 0,
-				comments: '',
-				sizesRange: ['']
-			}]
+			forms:[]
 		}
 	},
 	getters,

@@ -2,7 +2,7 @@
 	<div class="list-wrapper">
 		<h1>questionnaires list page</h1>
 		<body>
-			<base-dialog v-if="listOfForms.length==0" :ifFlashing="true" message="loading..."/>
+			<base-dialog v-if="listOfForms === null" :ifFlashing="true" message="loading..."/>
 			<base-dialog v-if="loadPhotosDialog" :ifFlashing="true" message="downloading photos..."/>
 			<ul v-for="form in listOfForms" :key="form.formId">
 				<router-link :to="/questionnaire/ + form.id">
@@ -29,13 +29,14 @@ export default {
 
 		const listOfForms = computed(()=>{
 			try{
-			if (store.getters['forms/listOfFolderNames'].length < 2){
-				store.dispatch('forms/readForms')
-			}}
+				if (store.getters['forms/listOfFolderNames'].length < 1){
+					store.dispatch('forms/readForms')
+				}
+			}
 			catch(err){
-			error.value = err.message || 'signup not completed :-/';
-		}
-			return store.getters['forms/listOfFolderNames']
+				error.value = err.message || 'signup not completed :-/';
+			}
+			return store.getters['forms/listOfFolderNames']?store.getters['forms/listOfFolderNames']:null
 		})
 
 		async function loadPhotos(id){

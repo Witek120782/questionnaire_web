@@ -28,114 +28,117 @@
 </template>
 
 <script>
-import BaseAnswer from '../../components/baseComponents/BaseAnswer.vue'
-import {computed, ref} from 'vue'
-import { useStore } from 'vuex'
-export default {
-	props:['id'],
-	components:{
-		BaseAnswer
-	},
-	setup(props){
-		const answersToShow = ref([])
-		const comments = ref([])
-		const respondents = ref([])
-		const store = useStore()
-		
-		store.dispatch('answers/readAnswers')
+	import BaseAnswer from '../../components/baseComponents/BaseAnswer.vue'
+	import {computed, ref} from 'vue'
+	import { useStore } from 'vuex'
+	export default {
+		props:['id'],
+		components:{
+			BaseAnswer
+		},
+		setup(props){
+			const answersToShow = ref([])
+			const comments = ref([])
+			const respondents = ref([])
+			const store = useStore()
+			
+			store.dispatch('answers/readAnswers')
 
-		const form = computed(()=>{
-			return [...store.getters['forms/getAllForms']].filter(item =>{
-				if (item.id == props.id) {
-					return item}
-			})[0]
-		})
-
-		const photos = ref(store.getters['photos/getAllPhotos'].filter(item =>{
-			if (item.formId == props.id) return item})[0].pictures)
-		
-		const answersFromStore = ref(store.getters['answers/getAllAnswers'])		
-
-		function getRespondents(){
-			answersFromStore.value.forEach(item=>{
-			respondents.value.push(item.userName)
-		})
-		}
-		
-		function getComments(){
-			answersFromStore.value.forEach(item=>{
-				if (item.comments != ''){
-					comments.value.push({
-					userName: item.userName,
-					comments: item.comments
-				})
-				}
+			const form = computed(()=>{
+				return [...store.getters['forms/getAllForms']].filter(item =>{
+					if (item.id == props.id) {
+						return item}
+				})[0]
 			})
-		}
-		
-		function prepareAnswers(){
-			photos.value.forEach(item=>{
-				let answersChooseSizeRange=[]
-				let answersPcsInBag=[]
-				let answersRatingColourValue=[]
-				let answersRatingDesignValue=[]
-				let answersRatingMainValue=[]
-				answersFromStore.value.forEach(answers=>{
-					if (answers != undefined){
-						answers.answers.forEach(answer=>{
-					if (answer.optionName === item.name){
-						if(answer.chooseSizeRange != null && answer.chooseSizeRange.length>0){
-							answersChooseSizeRange.push(answer.chooseSizeRange)
-						}
-						if(answer.pcsInBag != null && answer.pcsInBag.length>0){
-							answersPcsInBag.push(answer.pcsInBag)
-						}
-						if(answer.ratingColourValue != null){
-							answersRatingColourValue.push(answer.ratingColourValue)
-						}
-						if(answer.ratingDesignValue != null){
-							answersRatingDesignValue.push(answer.ratingDesignValue)
-						}
-						if(answer.ratingMainValue != null){
-							answersRatingMainValue.push(answer.ratingMainValue)
-						}
-					}
+
+			const photos = ref(store.getters['photos/getAllPhotos'].filter(item =>{
+				if (item.formId == props.id) return item})[0].pictures)
+			
+			const answersFromStore = ref(store.getters['answers/getAllAnswers'].filer(item=>{
+				console.log('get all answers')
+				console.log(item)
+			}))		
+
+			function getRespondents(){
+				answersFromStore.value.forEach(item=>{
+				respondents.value.push(item.userName)
+			})
+			}
+			
+			function getComments(){
+				answersFromStore.value.forEach(item=>{
+					if (item.comments != ''){
+						comments.value.push({
+						userName: item.userName,
+						comments: item.comments
 					})
 					}
 				})
-				answersToShow.value.push({
-					name: item.name,
-					url: item.url,
-					data:{
-						sizeRange: answersChooseSizeRange,
-						pcsInBag: answersPcsInBag,
-						ratingColourValue: answersRatingColourValue,
-						ratingDesignValue: answersRatingDesignValue,
-						ratingMainValue: answersRatingMainValue,
-					}
+			}
+			
+			function prepareAnswers(){
+				photos.value.forEach(item=>{
+					let answersChooseSizeRange=[]
+					let answersPcsInBag=[]
+					let answersRatingColourValue=[]
+					let answersRatingDesignValue=[]
+					let answersRatingMainValue=[]
+					answersFromStore.value.forEach(answers=>{
+						if (answers != undefined){
+							answers.answers.forEach(answer=>{
+						if (answer.optionName === item.name){
+							if(answer.chooseSizeRange != null && answer.chooseSizeRange.length>0){
+								answersChooseSizeRange.push(answer.chooseSizeRange)
+							}
+							if(answer.pcsInBag != null && answer.pcsInBag.length>0){
+								answersPcsInBag.push(answer.pcsInBag)
+							}
+							if(answer.ratingColourValue != null){
+								answersRatingColourValue.push(answer.ratingColourValue)
+							}
+							if(answer.ratingDesignValue != null){
+								answersRatingDesignValue.push(answer.ratingDesignValue)
+							}
+							if(answer.ratingMainValue != null){
+								answersRatingMainValue.push(answer.ratingMainValue)
+							}
+						}
+						})
+						}
+					})
+					answersToShow.value.push({
+						name: item.name,
+						url: item.url,
+						data:{
+							sizeRange: answersChooseSizeRange,
+							pcsInBag: answersPcsInBag,
+							ratingColourValue: answersRatingColourValue,
+							ratingDesignValue: answersRatingDesignValue,
+							ratingMainValue: answersRatingMainValue,
+						}
+					})
 				})
-			})
-		}
+			}
 
-		setTimeout(()=>{
-			getRespondents()
-			getComments()
-			prepareAnswers()
-		},2000)
+			setTimeout(()=>{
+				getRespondents()
+				getComments()
+				prepareAnswers()
+			},2000)
 
-		function showAnswers(){	
-			console.log(answersToShow.value)
-		}	
-		return{
-			answersToShow,
-			comments,
-			form,
-			photos,
-			respondents,
-			showAnswers
-		}
-}
-}
+			function showAnswers(){	
+				console.log(answersToShow.value)
+			}	
+			return{
+				answersToShow,
+				comments,
+				form,
+				photos,
+				respondents,
+				showAnswers
+			}
+	}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -157,12 +160,11 @@ export default {
 				grid-column: 1 / 2;
 				grid-row: 1 / 4;
 				border: 2px solid darken($colour02, 15);
-		background-color: rgba(217,192,162,.25);
-		backdrop-filter: blur(5.5px);
-				// background-color: darken($colour02, 12);
+				background-color: rgba(217,192,162,.25);
+				backdrop-filter: blur(5.5px);
 				padding:10px;
 				border-radius: 10px;
-				// box-shadow: 4px 4px 4px darken($colour02, 25);
+
 				h3{
 					text-align: center;
 					margin-bottom: 5px;
@@ -171,6 +173,7 @@ export default {
 					padding-left: 5px;
 				}
 			}
+
 			.answers{
 				grid-column:2/3;
 				grid-row: 1/2;
@@ -179,20 +182,21 @@ export default {
 				grid-column-gap: 5px;
 				grid-row-gap: 5px;
 			}
+
 			.comments{
 				grid-column:2/3;
 				grid-row:2/3;
 				border: 2px solid darken($colour02, 15);
-		background-color: rgba(217,192,162,.25);
-		backdrop-filter: blur(5.5px);
-				// background-color: darken($colour02, 12);
+				background-color: rgba(217,192,162,.25);
+				backdrop-filter: blur(5.5px);
 				padding:10px;
 				border-radius: 10px;
-				// box-shadow: 4px 4px 4px darken($colour02, 25);
+				
 				h3{
 					text-align: center;
 					margin-bottom: 5px;
 				}
+				
 				div{
 					margin-bottom: 10px;
 					p{
@@ -206,12 +210,11 @@ export default {
 				grid-column:2/3;
 				grid-row:3/4;
 				border: 2px solid darken($colour02, 15);
-		background-color: rgba(217,192,162,.25);
-		backdrop-filter: blur(5.5px);
-				// background-color: darken($colour02, 12);
+				background-color: rgba(217,192,162,.25);
+				backdrop-filter: blur(5.5px);
 				padding:10px;
 				border-radius: 10px;
-				// box-shadow: 4px 4px 4px darken($colour02, 25);
+				
 				h3{
 					text-align: center;
 					margin-bottom: 5px;
@@ -219,10 +222,4 @@ export default {
 			}	
 		}
 	}
-	
-	
-	
-	
-	
-
 </style>
