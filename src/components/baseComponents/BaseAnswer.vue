@@ -3,57 +3,91 @@
 		<div class="optionName">{{optionName}}</div>
 		<div class="optionPhoto"><img :src="optionPhoto" alt=""/></div>
 		<div class="optionData">
-			<div v-for="answer in answersDetails" :key="answer.name">
-				<AnswerDetail :title="answer.name" :answerData="answer.data"/>
+			<div v-if="answersDetails">
+				<div v-for="answer in answersDetails" :key="answer.name">
+					<AnswerDetail :title="answer.name" :answerData="answer.data"/>
+				</div>
+			</div>
+			<div v-if="pcsInBox">
+
 			</div>
 		</div>	
 	</div>	
 </template>
 
 <script>
-import AnswerDetail from './AnswerDetail.vue'
-import {ref} from 'vue'
-import emotes from "../../styles/emotes.js"
-export default {
-	props:[
-		'optionName',
-		'optionPhoto',
-		'optionData',
-	],
-	components:{
-		AnswerDetail
-	},
-	setup(props){
-		console.log('in a base answer')
-		console.log(props)
-		const answersDetails = ref([])
-		for(let item in props.optionData){
-			if (props.optionData[item].length > 0 ){
-				if (item.includes("Value")){
-					answersDetails.value.push(
-					{name: item,
-						data: [{
-							label: emotes["trumbDown"],
-							value: props.optionData[item].filter(item=>{if(item=='bad') return item}).length
-						},
-						{
-							label: emotes["emojiNeutral"],
-							value: props.optionData[item].filter(item=>{if(item=='neutral') return item}).length
-						},
-						{
-							label: emotes["trumbUp"],
-							value: props.optionData[item].filter(item=>{if(item=='good') return item}).length
-						}]
-					})
+	import AnswerDetail from './AnswerDetail.vue'
+	import {ref} from 'vue'
+	import emotes from "../../styles/emotes.js"
+	export default {
+		props:[
+			'optionName',
+			'optionPhoto',
+			'optionData',
+		],
+		components:{
+			AnswerDetail
+		},
+		setup(props){
+			console.log('in a base answer')
+			console.log(props.optionData)
+			const answersDetails = ref([])
+			for(let item in props.optionData){
+				if (props.optionData[item].length > 0 ){
+					if (item.includes("Value")){
+						answersDetails.value.push(
+						{name: item,
+							data: [{
+								label: emotes["trumbDown"],
+								value: props.optionData[item].filter(item=>{if(item=='bad') return item}).length
+							},
+							{
+								label: emotes["emojiNeutral"],
+								value: props.optionData[item].filter(item=>{if(item=='neutral') return item}).length
+							},
+							{
+								label: emotes["trumbUp"],
+								value: props.optionData[item].filter(item=>{if(item=='good') return item}).length
+							}]
+						})
+					}
+					else if (item.includes("pcsInBag")){
+						let pcsInPolybag = ""
+						props.optionData[item].forEach(elem=> pcsInPolybag += elem + " / ")
+						pcsInPolybag = pcsInPolybag.slice(0, pcsInPolybag.length-2)
+						answersDetails.value.push(
+							{name: "Votes for pcs in bag",
+							data:[
+								{
+									label: "pcs",
+									value: pcsInPolybag
+								}
+							] 
+							}
+						)
+					}
+					else if(item.includes("sizeRange")){
+						let sizeRanges = ""
+						props.optionData[item].forEach(elem=> sizeRanges += elem + " / ")
+						sizeRanges = sizeRanges.slice(0, sizeRanges.length-2)
+						answersDetails.value.push(
+							{name: "Votes for size range",
+							data:[
+								{
+									label: "size range",
+									value: sizeRanges
+								}
+							] 
+							}
+						)
+					}
 				}
 			}
-		}
-
-		return{
-			answersDetails,
+			return{
+				answersDetails
+			}
 		}
 	}
-}
 </script>
 <style lang="scss" scoped>
 @import '../../styles/variables.scss';

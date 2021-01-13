@@ -1,8 +1,16 @@
 <template>
 	<div class="answer-detail-wrapper">
 		<div class="detail-title">{{title}}</div>
-		<div class="data-section" v-for='data in answerData' :key="data.label">
-			<div class="data-value">{{data.label}}: <span>{{data.value}}</span></div>
+		<div v-if="answerData.length>1">
+			<div class="data-section" v-for='data in answerData' :key="data.label">
+				<div class="data-value">{{data.label}}: <span>{{data.value}}</span></div>
+			</div>
+		</div>
+		<div else class="data-single">
+			<div  v-for='data in answerData' :key="data.label">
+				<!-- <div >{{data.label}}:</div>  -->
+				<div><span>{{data.value}}</span></div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -15,7 +23,10 @@
 		],
 		setup(props){
 		console.log('in AnswerDetail')
-		console.log( props.title + " / "+ props.answerData)
+		console.log( props.title )
+		console.log(props.answerData)
+		console.log(props.answerData.length)
+		
 		}
 	}
 	
@@ -38,6 +49,10 @@
 		text-align: center;
 	
 		.detail-title{
+			grid-column: 1/-1;
+		}
+
+		.data-single{
 			grid-column: 1/-1;
 		}
 
