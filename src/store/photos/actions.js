@@ -22,7 +22,7 @@ export default {
 						// imagesList.push(imgUrl)
 						imagesList.push({
 							url: imgUrl,
-							name: itemRef.name
+							name: itemRef.name.slice(0, itemRef.name.indexOf("."))
 						})
 					}
 					})
