@@ -9,7 +9,6 @@
 			<div class="user-name">
 				<label for="userName">Your name:</label>
 				<input type="text" name="userName" placeholder="your name or initials" v-model.trim="userName" @change="validUserNameCheck"/>
-				<p v-if="validationUserName"> User name can not be empty, it should have at least 2 characters </p>
 			</div>
 			<div class="form-body" v-if="showPhotos">
 				<div v-for="photo in photos" :key="photo">
@@ -98,9 +97,11 @@
 
 			function validUserNameCheck(){
 				if (userName.value.length >= 2 && !!userName.value){
-					validationUserName.value = false
+					return true
 				} else { 
-					validationUserName.value = true 
+					ifError.value = true
+					errorMessage.value = 'User name can not be empty, it should have at least 2 characters'
+					return false 
 				}
 			}
 
@@ -161,8 +162,10 @@
 			}
 
 			function sendAnswer (){
-				ifError.value = false	
-				uploadAnswer()
+				ifError.value = false
+				if (validUserNameCheck()){
+					uploadAnswer()
+				}		
 			}
 			
 			return{
