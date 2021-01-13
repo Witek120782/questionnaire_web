@@ -1,6 +1,6 @@
 <template>
 	<div class="wrapper">
-		<base-dialog v-if="isLoading" :ifFlashing="baseDialogFlash" message="loading..." @hide-show="toggleDialog"></base-dialog>
+		<BaseDialog v-if="isLoading" :ifFlashing="baseDialogFlash" message="loading..." @hide-show="toggleDialog"></base-dialog>
 		<h1>questionnaires add page</h1>
 		<form @submit.prevent="submitForm">
 			

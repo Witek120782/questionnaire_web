@@ -1,10 +1,10 @@
 <template>
 <div class="base-wrapper">
-		<the-header></the-header>
+		<TheHeader></TheHeader>
 		<div class="bodyApp">
 			<router-view></router-view>
 		</div>
-		<the-footer/>
+		<TheFooter/>
 	</div>
 </template>
 

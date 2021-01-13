@@ -1,18 +1,18 @@
 <template>
 	<div>
-		<base-dialog v-if="!showPhotos" :ifFlashing="true" message="loading..."/>
-		<base-dialog v-if="sendingAnswer" :ifFlashing="true" message="answer sending..."/>
-		<base-dialog v-if="answerSent" :ifFlashing="true" message="answer sent with success"/>
+		<BaseDialog v-if="!showPhotos" :ifFlashing="true" message="loading..."/>
+		<BaseDialog v-if="sendingAnswer" :ifFlashing="true" message="answer sending..."/>
+		<BaseDialog v-if="answerSent" :ifFlashing="true" message="answer sent with success"/>
 		<div class="single-form">
 			<h1 class="form-title">Welcome in questionnaire: {{form.title}} {{form.qtyInPolybag}}</h1>
-			<base-button class="base-button" :toLink="'/questionnaire/' + id + '/answers'" mode="link">Show Answers</base-button>
+			<BaseButton class="base-button" :toLink="'/questionnaire/' + id + '/answers'" mode="link">Show Answers</BaseButton>
 			<div class="user-name">
 				<label for="userName">Your name:</label>
 				<input type="text" name="userName" placeholder="your name or initials" v-model.trim="userName" @change="validUserNameCheck"/>
 			</div>
 			<div class="form-body" v-if="showPhotos">
 				<div v-for="photo in photos" :key="photo">
-				<base-card title="tytuł karty" 
+				<BaseCard title="tytuł karty" 
 				:ifRating="ifRating" 
 				:designRating="designRating" 
 				:colourRating="colourRating" 

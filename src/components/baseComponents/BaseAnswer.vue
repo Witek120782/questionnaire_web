@@ -4,7 +4,7 @@
 		<div class="optionPhoto"><img :src="optionPhoto" alt=""/></div>
 		<div class="optionData">
 			<div v-for="answer in answersDetails" :key="answer.name">
-				<answer-detail :title="answer.name" :answerData="answer.data"/>
+				<AnswerDetail :title="answer.name" :answerData="answer.data"/>
 			</div>
 		</div>	
 	</div>	

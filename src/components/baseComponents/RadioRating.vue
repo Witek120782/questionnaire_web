@@ -43,44 +43,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/variables.scss";
-.rating-element{
-	display: grid;
-	grid-template-columns: auto auto auto;
-	grid-template-rows: auto auto;
-	grid-column-gap: 10px;
-	color: $colour03;
-	.title{
-		grid-column: 1 / -1;
-		font-size:14px;
-	}
-	.radio-section{
-		border: 1px solid $colour03;
-		border-radius: 5px;
-		padding: 2px 2px 3px 2px;
-		margin-bottom:7px;
-		input{
-			cursor: pointer;
-			width:10px;
+	@import "../../styles/variables.scss";
+	.rating-element{
+		display: grid;
+		grid-template-columns: auto auto auto;
+		grid-template-rows: auto auto;
+		grid-column-gap: 10px;
+		color: $colour03;
+		.title{
+			grid-column: 1 / -1;
+			font-size:14px;
 		}
-		label{
-			box-sizing: border-box;
-			padding: 0px 3px 0px 3px;
-			font-size:20px;
+		.radio-section{
+			border: 1px solid $colour03;
+			border-radius: 5px;
+			padding: 2px 2px 3px 2px;
+			margin-bottom:7px;
+			input{
+				cursor: pointer;
+				width:10px;
+			}
+			label{
+				box-sizing: border-box;
+				padding: 0px 3px 0px 3px;
+				font-size:20px;
+			}
+			input[type=radio]:checked + label {
+					padding: 1px 1px 2px 1px;
+					border-radius: 3px;
+					background-color:gold;
+			}
 		}
-		input[type=radio]:checked + label {
-				padding: 1px 1px 2px 1px;
-				border-radius: 3px;
-				background-color:gold;
-}
-	}
-	.bad{
-			background-color: red;
-		}
-	.good{
-			background-color: green;
-		}	
+		.bad{
+				background-color: red;
+			}
+		.good{
+				background-color: green;
+			}	
 
-}
-
+	}
 </style>

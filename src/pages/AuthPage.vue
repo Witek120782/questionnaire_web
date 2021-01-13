@@ -1,6 +1,6 @@
 <template>
 	<div class="auth-wrapper">
-		<base-dialog v-if="isLoading" :ifFlashing="true" message="authorisation..." @hide-show="toggleDialog"/>
+		<BaseDialog v-if="isLoading" :ifFlashing="true" message="authorisation..." @hide-show="toggleDialog"/>
 		<form @submit.prevent="sumbitForm">
 			<div class="form-control">
 				<label for="email">Email:</label>

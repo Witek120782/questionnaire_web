@@ -1,8 +1,8 @@
 <template>
-<div class="footer-wrapper">
-	<h3>footer</h3>
-	<div>foter information: contact etc</div>
-</div>
+	<div class="footer-wrapper">
+		<h3>footer</h3>
+		<div>foter information: contact etc</div>
+	</div>
 </template>
 
 <script>

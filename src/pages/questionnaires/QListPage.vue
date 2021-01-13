@@ -2,8 +2,8 @@
 	<div class="list-wrapper">
 		<h1>questionnaires list page</h1>
 		<body>
-			<base-dialog v-if="listOfForms === null" :ifFlashing="true" message="loading..."/>
-			<base-dialog v-if="loadPhotosDialog" :ifFlashing="true" message="downloading photos..."/>
+			<BaseDialog v-if="listOfForms === null" :ifFlashing="true" message="loading..."/>
+			<BaseDialog v-if="loadPhotosDialog" :ifFlashing="true" message="downloading photos..."/>
 			<ul v-for="form in listOfForms" :key="form.formId">
 				<router-link :to="/questionnaire/ + form.id">
 					<div @click="loadPhotos(form.id)">title: {{form.title}}</div>
@@ -11,7 +11,7 @@
 			</ul>
 		</body>
 		<div class="button-add">
-			<base-button class="add-button" toLink="/questionnaire/add" mode="link">Add New Questionnaire</base-button>
+			<BaseButton class="add-button" toLink="/questionnaire/add" mode="link">Add New Questionnaire</BaseButton>
 		</div>
 	</div>
 </template>

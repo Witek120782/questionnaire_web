@@ -10,7 +10,7 @@
 			</div>
 			<div class="answers">
 				<div v-for="answer in answersToShow" :key="answer.name">
-					<base-answer :optionName="answer.name" :optionPhoto="answer.url" :optionData="answer.data" />
+					<BaseAnswer :optionName="answer.name" :optionPhoto="answer.url" :optionData="answer.data" />
 				</div>
 			</div>
 			<div class="comments">

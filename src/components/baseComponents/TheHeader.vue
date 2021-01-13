@@ -2,10 +2,10 @@
 	<div class="header-wrapper">
 		<h1>Title of the WebPage</h1>
 		<section>
-			<base-button class="header-button" toLink="/home" mode="link">Home Page</base-button>
-			<base-button class="header-button" v-if="ifLogged" toLink="/questionnaire" mode="link">Questionnaires</base-button>
-			<base-button class="header-button" v-if="!ifLogged" toLink="/auth" mode="link">Login</base-button>
-			<base-button class="header-button" v-else @click="logout" toLink="/home" mode="link">Logout</base-button>
+			<BaseButton class="header-button" toLink="/home" mode="link">Home Page</BaseButton>
+			<BaseButton class="header-button" v-if="ifLogged" toLink="/questionnaire" mode="link">Questionnaires</BaseButton>
+			<BaseButton class="header-button" v-if="!ifLogged" toLink="/auth" mode="link">Login</BaseButton>
+			<BaseButton class="header-button" v-else @click="logout" toLink="/home" mode="link">Logout</BaseButton>
 		</section>
 	</div>
 </template>

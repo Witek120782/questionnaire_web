@@ -6,11 +6,11 @@
 	</div>
 </template>
 <script>
-import QuestionnariesList from "./QListPage.vue";
-export default {
-	components:{
-		QuestionnariesList
+	import QuestionnariesList from "./QListPage.vue";
+	export default {
+		components:{
+			QuestionnariesList
+		}
+		
 	}
-	
-}
 </script>
