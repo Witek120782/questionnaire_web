@@ -13,7 +13,7 @@ const app = createApp(App);
 app.use(router);
 app.use(store);
 
-app.component('base-button', BaseButton);
-app.component('base-dialog', BaseDialog);
+app.component('BaseButton', BaseButton);
+app.component('BaseDialog', BaseDialog);
 
 app.mount('#app');
