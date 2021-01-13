@@ -24,7 +24,8 @@ export default {
 		AnswerDetail
 	},
 	setup(props){
-		
+		console.log('in a base answer')
+		console.log(props)
 		const answersDetails = ref([])
 		for(let item in props.optionData){
 			if (props.optionData[item].length > 0 ){

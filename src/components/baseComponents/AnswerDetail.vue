@@ -8,17 +8,17 @@
 </template>
 
 <script>
-export default {
-	props:[
-		'title',
-		'answerData'
-	],
-	setup(props){
-		console.log('inAnswerDetail')
-		console.log(props.answerData)
+	export default {
+		props:[
+			'title',
+			'answerData'
+		],
+		setup(props){
+		console.log('in AnswerDetail')
+		console.log( props.title + " / "+ props.answerData)
+		}
 	}
 	
-}
 </script>
 
 <style lang="scss" scoped>

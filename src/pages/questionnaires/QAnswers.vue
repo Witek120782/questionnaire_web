@@ -54,19 +54,21 @@
 			const photos = ref(store.getters['photos/getAllPhotos'].filter(item =>{
 				if (item.formId == props.id) return item})[0].pictures)
 			
-			const answersFromStore = ref(store.getters['answers/getAllAnswers'].filer(item=>{
-				console.log('get all answers')
-				console.log(item)
-			}))		
+			const allAnswersFromStore = ref(store.getters['answers/getAllAnswers'])
+					
+			function getCorrectAnswers(){
+				return allAnswersFromStore.value.filter(item =>{
+				if (item.formId == props.id) return item})
+			}
 
 			function getRespondents(){
-				answersFromStore.value.forEach(item=>{
-				respondents.value.push(item.userName)
-			})
+				getCorrectAnswers().forEach(item=>{
+					respondents.value.push(item.userName)
+				})
 			}
 			
 			function getComments(){
-				answersFromStore.value.forEach(item=>{
+				getCorrectAnswers().forEach(item=>{
 					if (item.comments != ''){
 						comments.value.push({
 						userName: item.userName,
@@ -83,7 +85,7 @@
 					let answersRatingColourValue=[]
 					let answersRatingDesignValue=[]
 					let answersRatingMainValue=[]
-					answersFromStore.value.forEach(answers=>{
+					getCorrectAnswers().forEach(answers=>{
 						if (answers != undefined){
 							answers.answers.forEach(answer=>{
 						if (answer.optionName === item.name){
@@ -127,11 +129,11 @@
 			},2000)
 
 			function showAnswers(){	
-				console.log(answersToShow.value)
+				console.log(allAnswersFromStore.value)
 			}	
 			return{
-				answersToShow,
 				comments,
+				allAnswersFromStore,
 				form,
 				photos,
 				respondents,
