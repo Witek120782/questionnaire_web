@@ -11,7 +11,7 @@
 			</ul>
 		</body>
 		<div class="button-add">
-			<BaseButton class="add-button" toLink="/questionnaire/add" mode="link">Add New Questionnaire</BaseButton>
+			<BaseButton v-if="canAddNew" class="add-button" toLink="/questionnaire/add" mode="link">Add New Questionnaire</BaseButton>
 		</div>
 	</div>
 </template>
@@ -22,10 +22,15 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
 	setup(){
+		
 		const loadPhotosDialog = ref(false)
 		const store = useStore()
 		const error = ref('')
 		const router = useRouter()
+		const canAddNew = ref(store.getters['auth/canAddNew'])
+		
+		// for tests only
+		console.log('is admin: ' + store.getters['auth/isAdmin'])
 
 		const listOfForms = computed(()=>{
 			try{
@@ -54,6 +59,7 @@ export default {
 		}
 
 		return{
+			canAddNew,
 			listOfForms,
 			loadPhotos,
 			loadPhotosDialog,

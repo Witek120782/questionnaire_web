@@ -1,8 +1,10 @@
 // dodajemy zmienna globalna zeby moc wyczyscic timer z dowolnego miejsca aplikacji
 let timer;
 import {defaultAuth} from '../../firebase.js'
+import { defaultDatabase } from '../../firebase.js';
 
 export default{
+	
 	async login(context, payload){
 		return context.dispatch('auth',{
 			...payload,
@@ -18,54 +20,61 @@ export default{
 		})
 	},
 
-
 	async auth(context, payload){
 		const mode = payload.mode;
 		
 		let response = null; 
 		let userToken = null;
+		let canAddNew = false;
+		let isAdmin = false;
 
-		if (mode === 'signup'){
-		await	defaultAuth.createUserWithEmailAndPassword(payload.email, payload.password)
-			.then(auth=>{
+		if(mode === 'signup'){
+			try{
+				console.log('here')
+				const auth = await defaultAuth.createUserWithEmailAndPassword(payload.email, payload.password)
+				console.log(auth)
 				response = auth.user.toJSON();
-				auth.user.getIdToken().then(token=>{
+				const token = await auth.user.getIdToken()
 				userToken = token;
-				});
-			}).catch(error => {
-				console.log(error.message)
-			})			
-		} else if(mode === 'login'){
-			await defaultAuth.signInWithEmailAndPassword(payload.email, payload.password)
-			.then(auth=>{
+			}catch(e){
+				console.log(e)
+			}
+			const newUser = {
+				isAdmin,
+				canAddNew
+			};
+			defaultDatabase.ref('users/' + response.uid).set(newUser)
+		} 
+		else if(mode === 'login'){
+			try{
+				const auth = await defaultAuth.signInWithEmailAndPassword(payload.email, payload.password)
 				response = auth.user.toJSON();
-				auth.user.getIdToken().then(token=>{
-					userToken = token;
-				});
-			}).catch(error => {
-				console.log(error.message)
-			})
+				const token = await auth.user.getIdToken()			
+				userToken = token;
+				const snapshot = await defaultDatabase.ref('users/' + response.uid).once('value')
+				canAddNew = snapshot.val().canAddNew;
+				isAdmin = snapshot.val().isAdmin;
+			}
+			catch(e) {
+				console.log(e)
+			}
 		}
-
 
 				localStorage.setItem('userId', response.uid);
 				localStorage.setItem('token', userToken)
-
-				// here somthing is wrong
-				// const expiresIn = +response.stsTokenManager.expirationTime *1000;
-				// const expirationDate = new Date().getTime() +  expiresIn;
-
-				const expirationDate = new Date().getTime() +  60000;
+				const expiresIn = +response.stsTokenManager.expirationTime *1000;
+				const expirationDate = new Date().getTime() +  expiresIn;
 				localStorage.setItem('tokenExpiration', expirationDate);
 				
-
 				timer = setTimeout(function(){
 					context.dispatch('autoLogout')
 				},600000);
 
 		context.commit('setUser', {
 			token: userToken,
-			userId: response.uid
+			userId: response.uid,
+			isAdmin,
+			canAddNew
 		})
 	},
 
@@ -94,8 +103,8 @@ export default{
 		})
 	},
 
+	
 	logout(context){
-
 		// czyścimy pamiec przeglarki zeby przy przeladowaniu strony nie pozostac nadal zalogowanym
 		localStorage.removeItem('token'),
 		localStorage.removeItem('userId')
@@ -109,6 +118,7 @@ export default{
 			userId: null,
 		})
 	},
+
 
 	autoLogout(context){
 		context.dispatch('logout')

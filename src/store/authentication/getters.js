@@ -8,6 +8,12 @@ export default{
 	isAuthenticated(state){
 		return !!state.token
 	},
+	isAdmin(state){
+		return state.isAdmin
+	},
+	canAddNew(state){
+		return state.canAddNew
+	},
 	didAutoLogout(state){
 		return state.autoLogout
 	}

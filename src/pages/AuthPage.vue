@@ -90,7 +90,7 @@
 				})
 			}
 
-			function signup(email, password){
+			function signUp(email, password){
 				store.dispatch('auth/signup',{
 					email,
 					password
@@ -103,13 +103,13 @@
 					return formIsValid.value=false;
 				}
 				authorisation.value=true
+				const factoryObject = {
+					login,
+					signUp
+				}
 				try{
-					if(mode.value==="login"){
-						login (email.value, password.value)				
-					}else if (mode.value==="signUp"){
-						signup(email.value, password.value)
-					}
-					router.replace('./questionnaire');
+					factoryObject[mode.value](email.value, password.value)
+					router.replace('./home');
 				} catch(err){
 					error.value = err.message || 'signup not completed :-/';
 					authorisation.value=false

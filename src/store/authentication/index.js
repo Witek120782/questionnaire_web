@@ -8,7 +8,9 @@ export default{
 		return{
 			userId: null,
 			token: null,
-			autoLogout: false
+			autoLogout: false,
+			isAdmin: false,
+			canAddNew: false,
 		}
 	},
 	getters,
