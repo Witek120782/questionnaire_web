@@ -21,11 +21,7 @@
 			'title',
 			'answerData'
 		],
-		setup(props){
-		console.log('in AnswerDetail')
-		console.log( props.title )
-		console.log(props.answerData)
-		console.log(props.answerData.length)
+		setup(){
 		
 		}
 	}
