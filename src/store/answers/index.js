@@ -6,15 +6,7 @@ export default{
 	namespaced: true,
 	state(){
 		return{
-			answers:[{
-				id:'000',
-				formId:'888',
-				formTitle:'tytul12',
-				userName:'',
-				answers:[],
-				comments:'',
-				responseTime:''
-			}]
+			answers:[]
 		}
 	},
 	getters,

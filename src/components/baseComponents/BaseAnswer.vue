@@ -13,6 +13,7 @@
 <script>
 import AnswerDetail from './AnswerDetail.vue'
 import {ref} from 'vue'
+import emotes from "../../styles/emotes.js"
 export default {
 	props:[
 		'optionName',
@@ -23,7 +24,8 @@ export default {
 		AnswerDetail
 	},
 	setup(props){
-
+		console.log('in a base answer')
+		console.log(props)
 		const answersDetails = ref([])
 		for(let item in props.optionData){
 			if (props.optionData[item].length > 0 ){
@@ -31,15 +33,15 @@ export default {
 					answersDetails.value.push(
 					{name: item,
 						data: [{
-							label: String.fromCodePoint(0x1F44E),
+							label: emotes["trumbDown"],
 							value: props.optionData[item].filter(item=>{if(item=='bad') return item}).length
 						},
 						{
-							label: String.fromCodePoint(0x1F610),
+							label: emotes["emojiNeutral"],
 							value: props.optionData[item].filter(item=>{if(item=='neutral') return item}).length
 						},
 						{
-							label: String.fromCodePoint(0x1F44D),
+							label: emotes["trumbUp"],
 							value: props.optionData[item].filter(item=>{if(item=='good') return item}).length
 						}]
 					})
@@ -61,10 +63,12 @@ export default {
 		grid-template-rows: auto auto;
 		// max-height: 30vh;
 		margin-bottom: 10px;
-		background-color: darken($colour02, 12);
+		border: 2px solid darken($colour02, 15);
+		background-color: rgba(217,192,162,.25);
+		backdrop-filter: blur(5.5px);
 		padding:10px;
 		border-radius: 10px;
-		box-shadow: 4px 4px 4px darken($colour02, 25);
+		// box-shadow: 4px 4px 4px darken($colour02, 25);
 
 		.optionName{
 			grid-column: 1/3;

@@ -13,7 +13,7 @@ export default {
 	},
 
 	// async dowloadImages(_, commit, getters, _2, payload){
-async dowloadImages(context, payload){
+	async dowloadImages(context, payload){
 		let imagesList = []
 		defaultStorage.ref(payload.formId).listAll().then(item => {
 			item.items.forEach(itemRef => {
@@ -22,7 +22,7 @@ async dowloadImages(context, payload){
 						// imagesList.push(imgUrl)
 						imagesList.push({
 							url: imgUrl,
-							name: itemRef.name
+							name: itemRef.name.slice(0, itemRef.name.indexOf("."))
 						})
 					}
 					})

@@ -10,7 +10,7 @@
 				<label for="passord">Password:</label>
 				<input type="password" id="password" placeholder="password at least 6 characters" v-model="password"/>
 			</div>
-			<p v-if="!formIsValid">Please inser valid email adress and password.</p>
+			<p v-if="!formIsValid">Please insert valid email adress and password (ate least 6 characters).</p>
 			<button class="button">{{sumbitButtonText}}</button>
 			<div class="button" @click="swichMode">{{ switchModeTextButton }}</div>
 		</form>
@@ -23,106 +23,118 @@
 </template>
 
 <script>
-import {ref, computed} from 'vue';
-import { useStore } from 'vuex';
-export default {
-	setup(){
-		const authorisation = ref(false);
-		const email = ref('');
-		const password = ref('');
-		const formIsValid = ref(true);
-		const mode = ref('login');
-		const error = ref('');
-		const store = useStore();
+	import {ref, computed} from 'vue';
+	import { useStore } from 'vuex';
+	import { useRouter } from 'vue-router';
 
-	const switchModeTextButton = computed(()=>{
-		if (mode.value === 'login'){
-			return 'swich to Sign up';
-		}
-		else return 'swich to Login'
-	})
+	export default {
+		setup(){
+			const authorisation = ref(false);
+			const email = ref('');
+			const error = ref('');
+			const formIsValid = ref(true);
+			const mode = ref('login');
+			const password = ref('');
+			const router = useRouter();
+			const store = useStore();
+
+			const switchModeTextButton = computed(()=>{
+				if (mode.value === 'login'){
+					return 'swich to Sign up';
+				}
+				else return 'swich to Login'
+			})
 
 
-// do usuniecia po testach
-	const userId = computed(()=>{
-		return store.getters['auth/userId']
-	})
-// do usuniecia po testach
-	const userToken = computed(()=>{
-		return store.getters['auth/token']
-	})
+			// do usuniecia po testach
+			const userId = computed(()=>{
+				return store.getters['auth/userId']
+			})
+			// do usuniecia po testach
+			const userToken = computed(()=>{
+				return store.getters['auth/token']
+			})
 
-const sumbitButtonText = computed(()=>{
-	if (mode.value === 'login'){
-			return "LOGIN";
-		} else if (mode.value=== 'signUp'){
-			return "SIGN UP";
-		}
-})
+			const sumbitButtonText = computed(()=>{
+				if (mode.value === 'login'){
+						return "LOGIN";
+					} else if (mode.value=== 'signUp'){
+						return "SIGN UP";
+					}
+			})
 
-const isLoading = computed(()=>{
-	if (authorisation.value && !store.getters['auth/userId']) {
-		return true
-	} else {
-		authorisation.value = false
-		return false}
-})
-	function swichMode(){
-		if (mode.value === 'login'){
-			mode.value ="signUp"
-		} else if (mode.value=== 'signUp'){
-			mode.value = "login"
-		}
-	}
+			const isLoading = computed(()=>{
+				if (authorisation.value && !store.getters['auth/userId']) {
+					return true
+				} else {
+					authorisation.value = false
+					return false}
+			})
+	
+			function swichMode(){
+				if (mode.value === 'login'){
+					mode.value ="signUp"
+				} else if (mode.value=== 'signUp'){
+					mode.value = "login"
+				}
+			}
 
-	function toggleDialog(){
-		authorisation.value=false
-	}
+			function toggleDialog(){
+				authorisation.value=false
+			}
 
-	async function sumbitForm(){
-		formIsValid.value = true;
-		if (email.value=='' || !email.value.includes('@') || password.value.length<6){
-			formIsValid.value=false;
-		}
-		authorisation.value=true
-		try{
-			if(mode.value==="login"){
-							store.dispatch('auth/login',{
-					email: email.value,
-					password: password.value
-				})		
-			}else if (mode.value==="signUp"){
-				store.dispatch('auth/signup',{
-					email:email.value,
-					password: password.value
+			function login(email, password){
+				store.dispatch('auth/login',{
+					email,
+					password
 				})
 			}
-			// add something like this to redirect this.$router.replace('./coaches');
-		} catch(err){
-			error.value = err.message || 'signup not completed :-/';
-			authorisation.value=false
-		}
-		email.value = null
-		password.value = null
-	}
 
-		return{
-			email,
-			password,
-			formIsValid,
-			mode,
-			isLoading,
-			error,
-			swichMode,
-			switchModeTextButton,
-			sumbitForm,
-			sumbitButtonText,
-			userId,
-			userToken,
-			toggleDialog
+			function signup(email, password){
+				store.dispatch('auth/signup',{
+					email,
+					password
+				})
+			}
+
+			async function sumbitForm(){
+				formIsValid.value = true;
+				if (email.value=='' || !email.value.includes('@') || password.value.length<6){
+					return formIsValid.value=false;
+				}
+				authorisation.value=true
+				try{
+					if(mode.value==="login"){
+						login (email.value, password.value)				
+					}else if (mode.value==="signUp"){
+						signup(email.value, password.value)
+					}
+					router.replace('./questionnaire');
+				} catch(err){
+					error.value = err.message || 'signup not completed :-/';
+					authorisation.value=false
+				}
+				email.value = null
+				password.value = null
+			}
+
+			return{
+				email,
+				password,
+				formIsValid,
+				mode,
+				isLoading,
+				error,
+				swichMode,
+				switchModeTextButton,
+				sumbitForm,
+				sumbitButtonText,
+				userId,
+				userToken,
+				toggleDialog
+			}
 		}
 	}
-}
 </script>
 
 <style lang="scss" scoped>
@@ -149,11 +161,15 @@ const isLoading = computed(()=>{
 			padding: 7px 7px;
 			border: 2px solid $colour03;
 			border-radius: 5px;
+			backdrop-filter: blur(5px);
 			cursor: pointer;
 				font-size: 16px;
 		}
 		button{
-			background-color: $colour01;
+			border-radius: 10px;
+			box-shadow: 3px 3px 3px  rgba(64,24,1,1);
+			background-color: rgba(64,24,1,.35);
+			backdrop-filter: blur(5px);
 		}
 		button:hover{
 			background-color: $colour03;

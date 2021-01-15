@@ -2,7 +2,7 @@
 	<div class="list-wrapper">
 		<h1>questionnaires list page</h1>
 		<body>
-			<base-dialog v-if="listOfForms.length==0" :ifFlashing="true" message="loading..."/>
+			<base-dialog v-if="listOfForms === null" :ifFlashing="true" message="loading..."/>
 			<base-dialog v-if="loadPhotosDialog" :ifFlashing="true" message="downloading photos..."/>
 			<ul v-for="form in listOfForms" :key="form.formId">
 				<router-link :to="/questionnaire/ + form.id">
@@ -29,13 +29,14 @@ export default {
 
 		const listOfForms = computed(()=>{
 			try{
-			if (store.getters['forms/listOfFolderNames'].length < 2){
-				store.dispatch('forms/readForms')
-			}}
+				if (store.getters['forms/listOfFolderNames'].length < 1){
+					store.dispatch('forms/readForms')
+				}
+			}
 			catch(err){
-			error.value = err.message || 'signup not completed :-/';
-		}
-			return store.getters['forms/listOfFolderNames']
+				error.value = err.message || 'signup not completed :-/';
+			}
+			return store.getters['forms/listOfFolderNames']?store.getters['forms/listOfFolderNames']:null
 		})
 
 		async function loadPhotos(id){
@@ -66,7 +67,6 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/variables.scss';
 	.list-wrapper{
-		background-color: $colour02;
 		width:100;
 		height: 100;
 
@@ -89,9 +89,14 @@ export default {
 				width:100;
 				padding:10px;
 				border-radius: 10px;
-				box-shadow: 2px 2px 2px $colour03;
+				box-shadow: 3px 5px 3px $colour03;
 				color: $colour03;
-				background-color: $colour01;
+				// background-color: $colour01;
+				border: 2px solid darken($colour02, 15);
+				border-radius: 10px;
+				background-color: rgba(217,192,162,.15);
+				backdrop-filter: blur(5.5px);
+				text-shadow: 2.5px .5px 1.5px $colour06;
 			}
 		}
 		.button-add{
@@ -101,7 +106,10 @@ export default {
 			justify-items: center;
 			
 			& .add-button{
-				background-color:$colour04;
+				border-radius: 10px;
+				box-shadow: 3px 3px 3px  rgba(64,24,1,1);
+				background-color: rgba(64,24,1,.35);
+				backdrop-filter: blur(5px);
 			}
 		}
 	}

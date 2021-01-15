@@ -33,8 +33,8 @@ export default{
 				userToken = token;
 				});
 			}).catch(error => {
-    console.log(error.message)
-  })			
+				console.log(error.message)
+			})			
 		} else if(mode === 'login'){
 			await defaultAuth.signInWithEmailAndPassword(payload.email, payload.password)
 			.then(auth=>{
@@ -43,8 +43,8 @@ export default{
 					userToken = token;
 				});
 			}).catch(error => {
-    console.log(error.message)
-		})
+				console.log(error.message)
+			})
 		}
 
 

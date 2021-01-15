@@ -2,8 +2,6 @@ import { defaultDatabase } from '../../firebase.js';
 
 export default{
 	async addAnswer(context, payload){
-		console.log('payload')
-		console.log(payload)
 		const newAnswer = {
 				id: payload.newAnswer.id,
 				formId: payload.newAnswer.formId,

@@ -14,7 +14,7 @@
 			<div class="size-to-choose" v-if="sizes && sizes.length>0">
 				<label for="sizeRange">Choose a size range:</label>
 				<select name="sizeRange" id="sizeRange" v-model="chooseSizeRange" @change="emitData">
-						<option v-for="size in sizes" :value="size" :key="size" >{{ size }}</option>
+					<option v-for="size in sizes" :value="size" :key="size" >{{ size }}</option>
 				</select>
 			</div>
 			<div class="pcs-to-polybag" v-if="pcsToPolybag">
@@ -27,148 +27,149 @@
 
 <script>
 
-import {ref, computed} from 'vue';
-import RadioRating from './RadioRating.vue'
+	import {ref, computed} from 'vue';
+	import RadioRating from './RadioRating.vue'
 
-export default {
-	components:{
-		RadioRating
-	},
-	props:[
-		'title',
-		'ifRating',
-		'colourRating',
-		'designRating',
-		'sizes',
-		'pcsToPolybag',
-		'photo'
-	],
-	emits:['send-data'],
-	setup(props, context){
-		const ratingMainValue = ref(null);
-		const ratingColourValue = ref(null);
-		const ratingDesignValue = ref(null);
-		const pcsInBag = ref('');
-		const chooseSizeRange = ref('');
+	export default {
+		components:{
+			RadioRating
+		},
+		props:[
+			'title',
+			'ifRating',
+			'colourRating',
+			'designRating',
+			'sizes',
+			'pcsToPolybag',
+			'photo'
+		],
+		emits:['send-data'],
+		setup(props, context){
+			const ratingMainValue = ref(null);
+			const ratingColourValue = ref(null);
+			const ratingDesignValue = ref(null);
+			const pcsInBag = ref('');
+			const chooseSizeRange = ref('');
 
-		const badInputNo = computed(()=>{
-			if (pcsInBag.value<0 || pcsInBag.value%1!=0){
-				return true
-			}else return false
-		})
+			const badInputNo = computed(()=>{
+				if (pcsInBag.value<0 || pcsInBag.value%1!=0){
+					return true
+				}else return false
+			})
 
-		function emitData(){
-			context.emit('send-data', {
-				optionName: props.photo.name,
+			function emitData(){
+				context.emit('send-data', {
+					optionName: props.photo.name,
+					ratingMainValue,
+					ratingColourValue,
+					ratingDesignValue,
+					pcsInBag,
+					chooseSizeRange
+				})
+		}
+
+		function getMainValue (data){
+			ratingMainValue.value = data
+		}
+		function getColourValue (data){
+			ratingColourValue.value = data
+		}
+		function getDesignValue (data){
+			ratingDesignValue.value = data
+		}
+
+		
+			return{
+				getColourValue,
+				getDesignValue,
+				getMainValue,
 				ratingMainValue,
 				ratingColourValue,
 				ratingDesignValue,
 				pcsInBag,
-				chooseSizeRange
-			})
-	}
-
-	function getMainValue (data){
-		ratingMainValue.value = data
-	}
-	function getColourValue (data){
-		ratingColourValue.value = data
-	}
-	function getDesignValue (data){
-		ratingDesignValue.value = data
-	}
-
-	
-		return{
-			getColourValue,
-			getDesignValue,
-			getMainValue,
-			ratingMainValue,
-			ratingColourValue,
-			ratingDesignValue,
-			pcsInBag,
-			chooseSizeRange,
-			badInputNo,
-			emitData
+				chooseSizeRange,
+				badInputNo,
+				emitData
+			}
 		}
 	}
-}
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/variables.scss';
-.base-card-wrapper{
-	/* min-width: 15vw; */
-	position: relative;
-	min-height: 60vh;
-	margin:0;
-	padding: 5px;
-	display: grid;
-	grid-template-rows: auto auto auto;
-	row-gap: 5px;
-	box-sizing: border-box;
-	border: 2px solid darken($colour02, 14);
-	border-radius: 10px;
-	background-color: darken($colour02, 9);
+	@import '../../styles/variables.scss';
+	.base-card-wrapper{
+		/* min-width: 15vw; */
+		position: relative;
+		min-height: 60vh;
+		margin:0;
+		padding: 5px;
+		display: grid;
+		grid-template-rows: auto auto auto;
+		row-gap: 5px;
+		box-sizing: border-box;
+		border: 2px solid darken($colour02, 15);
+		border-radius: 10px;
+		background-color: rgba(217,192,162,.25);
+		backdrop-filter: blur(5.5px);
 
-	.title{
-		align-self: center;
-		justify-self: center;
-		text-transform: uppercase;
-	}
-
-	.photo{
-		align-self: center;
-		justify-self: center;
-		height: 30;
-		img{
-			max-width: 20vw;
-			max-height: 200px;
-			border-radius: 10px;
-		}	
-	}
-
-	.rating{
-		justify-self: center;
-		
-		h3{
-			margin-bottom: 5px;
+		.title{
+			align-self: center;
+			justify-self: center;
+			text-transform: uppercase;
 		}
 
-		.visual-rating{	
-			margin-bottom: 5px;
-			padding-bottom: 5px;
-			border-bottom: 1px solid $colour03;
+		.photo{
+			align-self: center;
+			justify-self: center;
+			height: 30;
+			img{
+				max-width: 20vw;
+				max-height: 200px;
+				border-radius: 10px;
+			}	
 		}
 
-		.size-to-choose{
-			margin-bottom: 5px;
-			padding-bottom: 5px;
-			border-bottom: 1px solid $colour03;
-			select{
-				padding:5px 0 5px 5px;
-				width:100px;
-				margin-left: 15px;
-				border-radius:10px;
+		.rating{
+			justify-self: center;
+			
+			h3{
+				margin-bottom: 5px;
+			}
+
+			.visual-rating{	
+				margin-bottom: 5px;
+				padding-bottom: 5px;
+				border-bottom: 1px solid $colour03;
+			}
+
+			.size-to-choose{
+				margin-bottom: 5px;
+				padding-bottom: 5px;
+				border-bottom: 1px solid $colour03;
+				select{
+					padding:5px 0 5px 5px;
+					width:100px;
+					margin-left: 15px;
+					border-radius:10px;
+				}
+			}
+			.pcs-to-polybag{
+				input{
+					padding:5px 0 5px 5px;
+					width:35px;
+					margin-right: 15px;
+					border-radius:10px;
+				}
 			}
 		}
-		.pcs-to-polybag{
-			input{
-				padding:5px 0 5px 5px;
-				width:35px;
-				margin-right: 15px;
-				border-radius:10px;
-			}
+
+		.badInputNo{
+			position: absolute;
+			left:0;
+			bottom: 0;
+			color:red;
+			font-weight: bold;
 		}
-	}
 
-	.badInputNo{
-		position: absolute;
-		left:0;
-		bottom: 0;
-		color:red;
-		font-weight: bold;
 	}
-
-}
 </style>
