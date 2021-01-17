@@ -27,10 +27,7 @@ export default {
 		const store = useStore()
 		const error = ref('')
 		const router = useRouter()
-		const canAddNew = ref(store.getters['auth/canAddNew'])
-		
-		// for tests only
-		console.log('is admin: ' + store.getters['auth/isAdmin'])
+		const canAddNew = store.getters['auth/canAddNew']
 
 		const listOfForms = computed(()=>{
 			try{

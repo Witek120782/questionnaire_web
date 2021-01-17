@@ -14,7 +14,7 @@ export default{
 	canAddNew(state){
 		return state.canAddNew
 	},
-	didAutoLogout(state){
+	async didAutoLogout(state){
 		return state.autoLogout
 	}
 }
