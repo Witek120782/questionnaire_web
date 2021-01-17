@@ -6,10 +6,7 @@ export default{
 	namespaced: true,
 	state(){
 		return{
-			photos:[{
-				formId:'',
-				pictures:[''],
-			}]
+			photos:[]
 		}
 	},
 	getters,

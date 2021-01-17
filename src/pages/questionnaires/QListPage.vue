@@ -5,9 +5,9 @@
 			<BaseDialog v-if="listOfForms === null" :ifFlashing="true" message="loading..."/>
 			<BaseDialog v-if="loadPhotosDialog" :ifFlashing="true" message="downloading photos..."/>
 			<ul v-for="form in listOfForms" :key="form.formId">
-				<router-link :to="/questionnaire/ + form.id">
+				<!-- <router-link :to="/questionnaire/ + form.id"> -->
 					<div @click="loadPhotos(form.id)">title: {{form.title}}</div>
-				</router-link>
+				<!-- </router-link> -->
 			</ul>
 		</body>
 		<div class="button-add">
@@ -45,14 +45,15 @@ export default {
 			loadPhotosDialog.value = true
 			console.log('download starts')
 			try{
-			await store.dispatch('photos/dowloadImages', {
-			formId: id
-			})
+				await store.dispatch('photos/dowloadImages', {
+				formId: id
+				})
 			}catch(err){
 				console.log(err)
 			}
 			loadPhotosDialog.value=false
 			console.log('download ends')
+			router.replace('/questionnaire/' + id)
 		}
 
 		return{
@@ -86,7 +87,7 @@ export default {
 			justify-items: center;
 			align-items: center;
 
-			ul a{
+			ul div{
 				display: block;
 				text-decoration: none;
 				width:100;
@@ -100,6 +101,7 @@ export default {
 				background-color: rgba(217,192,162,.15);
 				backdrop-filter: blur(5.5px);
 				text-shadow: 2.5px .5px 1.5px $colour06;
+				cursor: pointer;
 			}
 		}
 		.button-add{

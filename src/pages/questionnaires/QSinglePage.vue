@@ -23,7 +23,7 @@
 			</div>
 			</div>
 			<div class="form-comments">
-				<label for="commnents">Your comments:</label><textarea type="text" name="comments" rows="5" placeholder="place for Your comments" v-model="comments"/>
+				<!-- <label for="commnents">Your comments:</label><textarea type="text" name="comments" rows="5" placeholder="place for Your comments" v-model="comments"/> -->
 			</div>
 			<div v-if="ifError">{{errorMessage}}</div>
 			<button @click="sendAnswer">Send answers</button>
@@ -55,13 +55,16 @@
 			const userName = ref('');
 			const validationUserName = ref(false);
 
-			const photos = ref(store.getters['photos/getAllPhotos'].filter(item =>{
-				if (item.formId == props.id) return item})[0].pictures)
+			const photos = computed(()=>{
+					const correctPhotos = store.getters['photos/getPhotos'].filter(elem => {
+						if(elem.formId === props.id) return true})
+					return correctPhotos[0].pictures
+			})
 			
 			setTimeout(()=>{
 				showPhotos.value=true
 			},2000)
-			
+	
 			const form = computed(()=>{
 				return [...store.getters['forms/getAllForms']].filter(item =>{
 					if (item.id == props.id) {
@@ -178,9 +181,10 @@
 				ifRating,
 				photos,
 				sendAnswer,
+				sendingAnswer,
 				setAnswers,
-				sizes,
 				showPhotos,
+				sizes,
 				userName,
 				validationUserName,
 				validUserNameCheck,

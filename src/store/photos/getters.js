@@ -7,7 +7,9 @@ export default{
 		return folderNames
 	},
 
-	getAllPhotos(state){
+	getPhotos(state){
+		console.log('in getPhotos')
+		console.log(state.photos)
 		return state.photos
 	}
 }

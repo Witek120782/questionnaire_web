@@ -11,12 +11,6 @@ export default{
 	
 	
 	async login(context, payload){
-		// return context.dispatch('auth',{
-		// 	...payload,
-		// 	mode: 'login'
-		// })	
-		
-		// const mode = "login";
 		try{
 			const auth = await defaultAuth.signInWithEmailAndPassword(payload.email, payload.password)
 			response = auth.user.toJSON();
@@ -53,12 +47,14 @@ export default{
 		context.dispatch('auth')
 	},
 
+
 	async getUserParam(_x1, payload){
 		const snapshot = await defaultDatabase.ref('users/' + payload.uid).once('value')
 		const response = snapshot.val()[payload.param]
 		return response
 	},
 
+	
 	async setLocalStorage(context, payload){
 		localStorage.setItem('userId', payload.uid);
 		localStorage.setItem('token', payload.userToken)
@@ -69,6 +65,7 @@ export default{
 			context.dispatch('autoLogout')
 		},600000);
 	},
+
 
 	async auth(context){
 		context.dispatch('setLocalStorage',{
