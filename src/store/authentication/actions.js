@@ -11,19 +11,22 @@ export default{
 	
 	
 	async login(context, payload){
+		
 		try{
 			const auth = await defaultAuth.signInWithEmailAndPassword(payload.email, payload.password)
+			console.log(auth)
 			response = auth.user.toJSON();
 			const token = await auth.user.getIdToken()			
 			userToken = token;
 			
 			canAddNew = await context.dispatch('getUserParam',{ param: "canAddNew", uid: response.uid});
 			isAdmin = await context.dispatch('getUserParam',{ param: "isAdmin", uid: response.uid});
+			context.dispatch('auth')
 		}
 		catch(e) {
 			console.log(e)
 		}
-		context.dispatch('auth')
+		
 	},
 
 
@@ -68,18 +71,22 @@ export default{
 
 
 	async auth(context){
-		context.dispatch('setLocalStorage',{
-			uid: response.uid,
-			userToken,
-			expirationTime: response.stsTokenManager.expirationTime
-		})
+		try{
+			context.dispatch('setLocalStorage',{
+				uid: response.uid,
+				userToken,
+				expirationTime: response.stsTokenManager.expirationTime
+			})
 
-		context.commit('setUser', {
-			token: userToken,
-			userId: response.uid,
-			isAdmin,
-			canAddNew
-		})
+			context.commit('setUser', {
+				token: userToken,
+				userId: response.uid,
+				isAdmin,
+				canAddNew
+			})
+		} catch(e){
+			console.log(e)
+		}
 	},
 
 

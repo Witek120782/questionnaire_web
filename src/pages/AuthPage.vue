@@ -18,6 +18,7 @@
 			<p>user info:</p>
 			<p>id: {{ userId }}</p>
 			<p>token: {{ userToken }}</p>
+			<p>{{error}}</p>
 		</div>
 	</div>
 </template>
@@ -108,11 +109,11 @@
 					signUp
 				}
 				try{
-					factoryObject[mode.value](email.value, password.value)
+					await factoryObject[mode.value](email.value, password.value)
 					router.replace('./home');
 				} catch(err){
-					error.value = err.message || 'signup not completed :-/';
 					authorisation.value=false
+					error.value = err.message || 'signup not completed :-/';
 				}
 				email.value = null
 				password.value = null

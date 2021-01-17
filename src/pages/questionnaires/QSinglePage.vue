@@ -23,7 +23,7 @@
 			</div>
 			</div>
 			<div class="form-comments">
-				<!-- <label for="commnents">Your comments:</label><textarea type="text" name="comments" rows="5" placeholder="place for Your comments" v-model="comments"/> -->
+				<label for="commnents">Your comments:</label><textarea type="text" name="comments" rows="5" placeholder="place for Your comments" v-model="comments"/>
 			</div>
 			<div v-if="ifError">{{errorMessage}}</div>
 			<button @click="sendAnswer">Send answers</button>
@@ -82,9 +82,7 @@
 			})
 
 			const designRating = computed(()=>{
-				if (ifRating.value) {
-					return form.value.reqRagingDesign
-					}
+				if (ifRating.value) return form.value.reqRagingDesign
 			})
 
 			const qtyInPolybag = computed(()=>{
